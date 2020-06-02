@@ -12,4 +12,4 @@ const TripPlan = () => {
   );
 };
 
-export default UserProfile;
+export default TripPlan;

@@ -58,14 +58,21 @@ const climbSchema = new mongoose.Schema({
       type: String,
     },
     zip: {
-      type: String,
+      type: Number,
     },
   },
+  description: {
+    type: String,
+  },
+  //Pictures/avatar - how will i store this?
+  //Array for trips?
 });
 
 // const messageSchema = new mongoose.Schema({
 //     sender: {
-//         //reference back to users table
+//         type: mongoose.Schema.Types.ObjectId,
+//         required: true,
+//         ref: "user"
 //     },
 //     recipient: {
 //         //reference back to users table
@@ -79,10 +86,27 @@ const climbSchema = new mongoose.Schema({
 // })
 
 // const plannedTripSchema = new mongoose.Schema({
-//     location: {
-//         //reference back to climbSchema table
+//   location: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     required: true,
+//     ref: "climb",
+//   },
+//   dateRange: {
+//     start: {
+//       type: String,
+//       required: true,
 //     },
-// })
+//     end: {
+//       type: String,
+//       required: true,
+//     },
+//     attendees: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       required: true,
+//       ref: "climb",
+//     },
+//   },
+// });
 
 //create model which looks in users table, should have the shape of userSchema
 const UserModel = mongoose.model("user", userSchema);
@@ -105,6 +129,17 @@ app.post("/user", async (request, response) => {
 });
 
 // 2) Climb Creation
+app.post("/climb", async (request, response) => {
+  try {
+    console.log("POST CLIMBSPOT");
+    let climbInstance = new ClimbModel(request.body);
+    console.log(climbInstance);
+    const createdClimb = await ClimbModel.create(climbInstance);
+    response.send(createdClimb);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 
 //DELETE REQUESTS
 // 1) Delete User (query string)
@@ -119,12 +154,13 @@ app.delete("/user", async (request, response) => {
   }
 });
 
-// 2) Delete User (body)
-app.delete("/user", async (request, response) => {
+// 2) Delete Climb (query string)
+app.delete("/climb", async (request, response) => {
   try {
-    console.log("DELETE USER");
-    let deleteUserInstance = await UserModel.deleteOne(request.body);
-    response.send(deleteUserInstance);
+    console.log("DELETE CLIMBSPOT");
+    let deleteClimbInstance = await ClimbModel.deleteOne(request.query);
+    console.log(deleteClimbInstance);
+    response.send(deleteClimbInstance);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -146,9 +182,21 @@ app.put("/user", async (request, response) => {
 });
 
 // 2) Edit Climb
+app.put("/climb", async (request, response) => {
+  try {
+    console.log("UPDATE CLIMBSPOT");
+    let updatedClimb = await ClimbModel.findOneAndUpdate(
+      request.query,
+      request.body
+    );
+    response.send(updatedClimb);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 
 //GET REQUESTS
-// 1) Users- All
+// 1a) Users- All
 app.get("/users", async (request, response) => {
   try {
     console.log("GET USERS");
@@ -159,7 +207,7 @@ app.get("/users", async (request, response) => {
   }
 });
 
-// 2) Users - Find One by query
+// 1b) Users - Find One by query
 app.get("/user", async (request, response) => {
   try {
     console.log("GET ONE USER");
@@ -170,12 +218,34 @@ app.get("/user", async (request, response) => {
   }
 });
 
-//used in index.js
+// 2a) Climbs- All
+app.get("/climbs", async (request, response) => {
+  try {
+    console.log("GET ALL CLIMBSPOTS");
+    let climbInstances = await ClimbModel.find({});
+    response.send(climbInstances);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+// 2b) Climbs - Find One by query
+app.get("/climb", async (request, response) => {
+  try {
+    console.log("GET ONE CLIMBSPOT");
+    let climb = await ClimbModel.findOne(request.query);
+    response.send(climb);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+//called inlistener for server status
 const start = () => {
   return app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
   });
 };
 
-//to use start function in index.js file
+//exporting start function for use in index.js file
 module.exports = { start };
