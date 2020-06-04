@@ -6,7 +6,10 @@ import React from "react";
 const ClimbList = () => {
   return (
     <div>
-      <h2>Climb List Page</h2>={" "}
+      <h2>Climb List Page</h2>
+      <h2>Climb List Page</h2>
+      <h2>Climb List Page</h2>
+      <p>Input here to search (by zip?)</p>
     </div>
   );
 };

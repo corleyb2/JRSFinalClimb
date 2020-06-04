@@ -4,9 +4,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
+// const { UserModel } = require("./models/userModel");
+// const { ClimbModel } = require("./models/climbModel");
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
@@ -17,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-//Schema Shapes
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -41,8 +42,15 @@ const userSchema = new mongoose.Schema({
       type: Number,
     },
   },
-  //Picture/avatar - how will i store this?
-  //Array for trips??
+  // avatar: {
+  //   type: String,
+  // },
+  // myTrips: {
+  //   Array for trips??
+  // },
+  // friendList: {
+  //   Array to ref back to user table of other userId
+  // },
 });
 
 const climbSchema = new mongoose.Schema({
@@ -64,6 +72,10 @@ const climbSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  photos: {
+    type: String,
+  },
+
   //Pictures/avatar - how will i store this?
   //Array for trips?
 });
@@ -85,7 +97,7 @@ const climbSchema = new mongoose.Schema({
 //     }
 // })
 
-// const plannedTripSchema = new mongoose.Schema({
+// const tripSchema = new mongoose.Schema({
 //   location: {
 //     type: mongoose.Schema.Types.ObjectId,
 //     required: true,
@@ -100,18 +112,19 @@ const climbSchema = new mongoose.Schema({
 //       type: String,
 //       required: true,
 //     },
-//     attendees: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       required: true,
-//       ref: "climb",
-//     },
+//   },
+//   attendees: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     required: true,
+//     ref: "climb",
 //   },
 // });
 
 //create model which looks in users table, should have the shape of userSchema
 const UserModel = mongoose.model("user", userSchema);
 const ClimbModel = mongoose.model("climb", climbSchema);
-// const PlannedTripModel = mongoose.model("plannedTrip", plannedTripSchema);
+
+// const TripModel = mongoose.model("plannedTrip", plannedTripSchema);
 // const MessageModel = mongoose.model("message", messageSchema);
 
 //POST REQUESTS
@@ -157,11 +170,13 @@ app.delete("/user", async (request, response) => {
 // 2) Delete Climb (query string)
 app.delete("/climb", async (request, response) => {
   try {
-    console.log("DELETE CLIMBSPOT");
+    console.log("DELETE CLIMBSPOT", request);
+
     let deleteClimbInstance = await ClimbModel.deleteOne(request.query);
     console.log(deleteClimbInstance);
     response.send(deleteClimbInstance);
   } catch (error) {
+    console.log("the Catch", error);
     response.status(500).send(error);
   }
 });
@@ -201,7 +216,7 @@ app.get("/users", async (request, response) => {
   try {
     console.log("GET USERS");
     let userInstances = await UserModel.find({});
-    response.send(userInstances);
+    response.status(200).send(userInstances);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -212,7 +227,7 @@ app.get("/user", async (request, response) => {
   try {
     console.log("GET ONE USER");
     let user = await UserModel.findOne(request.query);
-    response.send(user);
+    response.status(200).send(user);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -223,7 +238,7 @@ app.get("/climbs", async (request, response) => {
   try {
     console.log("GET ALL CLIMBSPOTS");
     let climbInstances = await ClimbModel.find({});
-    response.send(climbInstances);
+    response.status(200).send(climbInstances);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -234,7 +249,7 @@ app.get("/climb", async (request, response) => {
   try {
     console.log("GET ONE CLIMBSPOT");
     let climb = await ClimbModel.findOne(request.query);
-    response.send(climb);
+    response.status(200).send(climb);
   } catch (error) {
     response.status(500).send(error);
   }
