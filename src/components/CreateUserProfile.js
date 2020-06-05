@@ -1,5 +1,15 @@
 import React from "react";
 
+const styles = {
+  root: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    margin: 10,
+    width: "25ch",
+  },
+};
+
 const CreateUserProfile = ({ boundCreateProfile }) => {
   let firstnameInput,
     lastnameInput,
@@ -11,7 +21,7 @@ const CreateUserProfile = ({ boundCreateProfile }) => {
   return (
     <div>
       <form
-        // style={styles.formStyle}
+        style={styles.root}
         onSubmit={async (e) => {
           e.preventDefault();
           boundCreateProfile &&
@@ -29,7 +39,10 @@ const CreateUserProfile = ({ boundCreateProfile }) => {
           // insert React-Router's version of navigate
         }}
       >
-        <h3>Create Your Profile:</h3>
+        <br />
+        <br />
+        <br />
+        <br />
         <label htmlFor="username">Username:</label>
         <input
           id="username"
@@ -37,6 +50,13 @@ const CreateUserProfile = ({ boundCreateProfile }) => {
           placeholder="Username"
           ref={(node) => (usernameInput = node)}
         />
+        {/* <Input
+          variant="outlined"
+          id="username"
+          type="text"
+          placeholder="Username"
+          ref={(node) => (usernameInput = node)}
+        /> */}
         <label htmlFor="password">Password:</label>
         <input
           id="password"
@@ -77,7 +97,13 @@ const CreateUserProfile = ({ boundCreateProfile }) => {
           max="12"
           ref={(node) => (skillLowInput = node)}
         />
-
+        <p>
+          This site uses the V Scale to grade climbing aptitude. Not familiar?
+          Click below to find out more.
+        </p>
+        <p>
+          https://www.rei.com/learn/expert-advice/climbing-bouldering-rating.html
+        </p>
         {/* <label htmlFor="avatar">Upload a Photo As Your Avatar:</label>
         <input
           type="file"

@@ -4,6 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 // const { UserModel } = require("./models/userModel");
 // const { ClimbModel } = require("./models/climbModel");
 

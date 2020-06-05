@@ -8,6 +8,5 @@ export const rootReducer = (state, action) => {
   // if (action.type === "LOGOUT") {
   //     state = undefined;
   //   }
-
   return totalReducer(state, action);
 };

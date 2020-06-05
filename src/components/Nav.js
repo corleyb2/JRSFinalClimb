@@ -125,8 +125,7 @@ export default function Nav({ boundLogOut }) {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            JRS Coding School <br />
-            Learning Management System
+            Climb App
           </Typography>
           <IconButton
             color="inherit"

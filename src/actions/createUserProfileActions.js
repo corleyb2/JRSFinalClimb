@@ -26,6 +26,7 @@ const createUserProfileError = () => {
 
 const attemptCreateUserProfile = async (dispatch, profile) => {
   dispatch(createUserProfileRequest(profile));
+  console.log("profile from actions", profile);
   try {
     let profileToCreate = {
       username: profile.username,

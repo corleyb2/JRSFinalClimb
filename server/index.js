@@ -1,5 +1,4 @@
 const server = require("./server");
-console.log("dingles");
 server.start();
 
 // links to local server.js file
