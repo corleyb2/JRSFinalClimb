@@ -209,7 +209,7 @@ export default function Nav({ boundLogOut }) {
           <MenuItem
             className={classes.list}
             onClick={() => {
-              navigate("/user");
+              navigate("/create_climb");
               handleDrawerClose();
             }}
           >

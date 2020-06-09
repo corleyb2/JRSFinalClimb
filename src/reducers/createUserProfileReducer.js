@@ -12,12 +12,11 @@ const initialState = {
     high: null,
     low: null,
   },
-  // avatar: null,
+  avatar: null,
   status: null,
 };
 
 export const createUserProfileReducer = (state = initialState, action) => {
-  console.log("Action in reducer top", action);
   switch (action.type) {
     case CREATE_USER_PROFILE_REQUEST:
       return {
@@ -29,7 +28,7 @@ export const createUserProfileReducer = (state = initialState, action) => {
           high: action.high,
           low: action.low,
         },
-        // avatar: action.file,
+        avatar: action.file,
         status: action.type,
       };
     case CREATE_USER_PROFILE_SUCCESS:
@@ -42,7 +41,7 @@ export const createUserProfileReducer = (state = initialState, action) => {
           high: null,
           low: null,
         },
-        // avatar: null,
+        avatar: null,
         status: action.type,
       };
     case CREATE_USER_PROFILE_ERROR:
@@ -55,7 +54,7 @@ export const createUserProfileReducer = (state = initialState, action) => {
           high: null,
           low: null,
         },
-        // avatar: null,
+        avatar: null,
         status: action.type,
       };
     default:

@@ -36,7 +36,7 @@ const CreateUserProfile = ({ boundCreateProfile }) => {
               },
               // file: file ? file : "",
             }));
-          // insert React-Router's version of navigate
+          // navigate to profile page
         }}
       >
         <br />

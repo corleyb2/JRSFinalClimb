@@ -12,10 +12,15 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const PORT = 4000;
 
-mongoose.connect(process.env.DB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect(process.env.DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => {
+    console.error(err);
+  });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -44,12 +49,14 @@ const userSchema = new mongoose.Schema({
       type: Number,
     },
   },
-  // avatar: {
-  //   type: String,
-  // },
-  // myTrips: {
-  //   Array for trips??
-  // },
+  avatar: {
+    type: String,
+    //uuid setup in actions- need to created storage w S3 too
+  },
+  myTrips: {
+    type: [String],
+    //Ref to id of trip
+  },
   // friendList: {
   //   Array to ref back to user table of other userId
   // },
@@ -75,11 +82,13 @@ const climbSchema = new mongoose.Schema({
     type: String,
   },
   photos: {
-    type: String,
+    type: [String],
+    //uuid - need to created storage w S3 too
   },
-
-  //Pictures/avatar - how will i store this?
-  //Array for trips?
+  // plannedTrips: {
+  //   Object
+  //   sort by name of location from tripSchema
+  // },
 });
 
 // const messageSchema = new mongoose.Schema({

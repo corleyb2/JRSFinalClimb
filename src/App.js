@@ -5,10 +5,12 @@ import "./App.css";
 import { Router } from "@reach/router";
 
 import CreateUserProfileContainer from "./containers/CreateUserProfileContainer";
+import CreateClimbContainer from "./containers/CreateClimbContainer";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import ClimbList from "./components/ClimbList";
 import ClimbPage from "./components/ClimbPage";
+import CreateClimb from "./components/CreateClimb";
 import PlanTrip from "./components/PlanTrip";
 import EditUserProfile from "./components/EditUserProfile";
 import UserProfile from "./components/UserProfile";
@@ -22,9 +24,9 @@ function App() {
         <UserProfile path="/user" />
         <CreateUserProfileContainer path="/create_user" />
         <EditUserProfile path="/edit_user" />
-        <ClimbList path="/climbs">
-          {/* <ClimbPage path=":invoiceId" /> */}
-        </ClimbList>
+        <ClimbList path="/climbs" />
+        <CreateClimbContainer path="/create_climb" />
+        {/* <ClimbPage path=":invoiceId" /> */}
         <PlanTrip path="/plan_trip" />
       </Router>
     </div>

@@ -9,9 +9,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export const createUserProfileContainer = connect(
+export const CreateUserProfileContainer = connect(
   null,
   mapDispatchToProps
 )(CreateUserProfile);
 
-export default createUserProfileContainer;
+export default CreateUserProfileContainer;
