@@ -6,12 +6,14 @@ import { Router } from "@reach/router";
 
 import CreateUserProfileContainer from "./containers/CreateUserProfileContainer";
 import CreateClimbContainer from "./containers/CreateClimbContainer";
+import CreateTripContainer from "./containers/CreateTripContainer";
+
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import ClimbList from "./components/ClimbList";
 import ClimbPage from "./components/ClimbPage";
 import CreateClimb from "./components/CreateClimb";
-import PlanTrip from "./components/PlanTrip";
+import CreateTrip from "./components/CreateTrip";
 import EditUserProfile from "./components/EditUserProfile";
 import UserProfile from "./components/UserProfile";
 
@@ -27,7 +29,7 @@ function App() {
         <ClimbList path="/climbs" />
         <CreateClimbContainer path="/create_climb" />
         {/* <ClimbPage path=":invoiceId" /> */}
-        <PlanTrip path="/plan_trip" />
+        <CreateTripContainer path="/plan_trip" />
       </Router>
     </div>
   );
