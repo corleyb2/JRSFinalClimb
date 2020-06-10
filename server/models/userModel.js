@@ -23,11 +23,12 @@ const userSchema = new mongoose.Schema({
       type: Number,
     },
   },
-  // avatar: {
-  //   type: String,
-  // },
+  avatar: {
+    type: String,
+    //uuid on action, need to setup S3 bucket
+  },
   // myTrips: {
-  //   Array for trips??
+  //   object with date start, date end, location, and accompanying climbers
   // },
   // friendList: {
   //   Array to ref back to user table of other userId

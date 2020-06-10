@@ -1,7 +1,7 @@
 const { ClimbModel } = require("../models/climbModel");
 
 // Climb Creation
-const createClimb = app.post("/climb", async (request, response) => {
+const createClimb = async (request, response) => {
   try {
     console.log("POST CLIMBSPOT");
     let climbInstance = new ClimbModel(request.body);
@@ -11,10 +11,10 @@ const createClimb = app.post("/climb", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // Delete Climb (query string)
-const deleteClimb = app.delete("/climb", async (request, response) => {
+const deleteClimb = async (request, response) => {
   try {
     console.log("DELETE CLIMBSPOT", request);
 
@@ -25,10 +25,10 @@ const deleteClimb = app.delete("/climb", async (request, response) => {
     console.log("the Catch", error);
     response.status(500).send(error);
   }
-});
+};
 
 // Edit Climb
-const editClimb = app.put("/climb", async (request, response) => {
+const editClimb = async (request, response) => {
   try {
     console.log("UPDATE CLIMBSPOT");
     let updatedClimb = await ClimbModel.findOneAndUpdate(
@@ -39,10 +39,10 @@ const editClimb = app.put("/climb", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // Climbs- All
-const getAllClimbs = app.get("/climbs", async (request, response) => {
+const getAllClimbs = async (request, response) => {
   try {
     console.log("GET ALL CLIMBSPOTS");
     let climbInstances = await ClimbModel.find({});
@@ -50,10 +50,10 @@ const getAllClimbs = app.get("/climbs", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // Climbs - Find One by query
-const findSingleClimb = app.get("/climb", async (request, response) => {
+const findSingleClimb = async (request, response) => {
   try {
     console.log("GET ONE CLIMBSPOT");
     let climb = await ClimbModel.findOne(request.query);
@@ -61,7 +61,7 @@ const findSingleClimb = app.get("/climb", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 module.exports = {
   findSingleClimb,

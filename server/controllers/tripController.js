@@ -1,7 +1,7 @@
-import { TripModel } from "../models/tripModel";
+const { TripModel } = require("../models/tripModel");
 
 //POST
-const createTrip = app.post("/trip", async (request, response) => {
+const createTrip = async (request, response) => {
   try {
     console.log("POST TRIP");
     let tripInstance = new TripModel(request.body);
@@ -11,10 +11,10 @@ const createTrip = app.post("/trip", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 //DELETE(query string)
-const deleteTrip = app.delete("/trip", async (request, response) => {
+const deleteTrip = async (request, response) => {
   try {
     console.log("DELETE TRIP");
     let deleteTripInstance = await TripModel.deleteOne(request.query);
@@ -23,10 +23,10 @@ const deleteTrip = app.delete("/trip", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // EDIT
-const editTrip = app.put("/trip", async (request, response) => {
+const editTrip = async (request, response) => {
   try {
     console.log("UPDATE TRIP");
     let updatedTrip = await TripModel.findOneAndUpdate(
@@ -37,22 +37,22 @@ const editTrip = app.put("/trip", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 //GET REQUESTS
 // Trips - All
-const getAllTrips = app.get("/trips", async (request, response) => {
+const getAllTrips = async (request, response) => {
   try {
     console.log("GET TRIPS");
-    let tripInstances = await UserModel.find({});
+    let tripInstances = await TripModel.find({});
     response.status(200).send(tripInstances);
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // Trip - Find One by query
-const findOneTrip = app.get("/trip", async (request, response) => {
+const findOneTrip = async (request, response) => {
   try {
     console.log("GET ONE TRIP");
     let trip = await TripModel.findOne(request.query);
@@ -60,6 +60,6 @@ const findOneTrip = app.get("/trip", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 module.exports = { getAllTrips, findOneTrip, deleteTrip, createTrip, editTrip };

@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 
 const tripSchema = new mongoose.Schema({
   location: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
-    ref: "climb",
+    // type: mongoose.Schema.Types.ObjectId,
+    // required: true,
+    // ref: "climb",
   },
   dateRange: {
     start: {
@@ -17,9 +19,10 @@ const tripSchema = new mongoose.Schema({
     },
   },
   attendees: {
-    type: [mongoose.Schema.Types.ObjectId],
-    required: true,
-    ref: "user",
+    type: [String],
+    // type: [mongoose.Schema.Types.ObjectId],
+    // required: true,
+    // ref: "user",
   },
 });
 

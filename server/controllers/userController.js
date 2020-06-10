@@ -1,7 +1,7 @@
 const { UserModel } = require("../models/userModel");
 
 //POST
-const createUser = app.post("/user", async (request, response) => {
+const createUser = async (request, response) => {
   try {
     console.log("POST USER");
     let userInstance = new UserModel(request.body);
@@ -11,10 +11,10 @@ const createUser = app.post("/user", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 //DELETE(query string)
-const deleteUser = app.delete("/user", async (request, response) => {
+const deleteUser = async (request, response) => {
   try {
     console.log("DELETE USER");
     let deleteUserInstance = await UserModel.deleteOne(request.query);
@@ -23,10 +23,10 @@ const deleteUser = app.delete("/user", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // EDIT
-const editUser = app.put("/user", async (request, response) => {
+const editUser = async (request, response) => {
   try {
     console.log("UPDATE USER");
     let updatedUser = await UserModel.findOneAndUpdate(
@@ -37,11 +37,11 @@ const editUser = app.put("/user", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 //GET REQUESTS
 // Users- All
-const getAllUsers = app.get("/users", async (request, response) => {
+const getAllUsers = async (request, response) => {
   try {
     console.log("GET USERS");
     let userInstances = await UserModel.find({});
@@ -49,10 +49,10 @@ const getAllUsers = app.get("/users", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 // Users - Find One by query
-const findOneUser = app.get("/user", async (request, response) => {
+const findOneUser = async (request, response) => {
   try {
     console.log("GET ONE USER");
     let user = await UserModel.findOne(request.query);
@@ -60,6 +60,6 @@ const findOneUser = app.get("/user", async (request, response) => {
   } catch (error) {
     response.status(500).send(error);
   }
-});
+};
 
 module.exports = { getAllUsers, findOneUser, deleteUser, createUser, editUser };
