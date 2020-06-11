@@ -7,6 +7,7 @@ import { Router } from "@reach/router";
 import CreateUserProfileContainer from "./containers/CreateUserProfileContainer";
 import CreateClimbContainer from "./containers/CreateClimbContainer";
 import CreateTripContainer from "./containers/CreateTripContainer";
+import GetUserProfileContainer from "./containers/GetUserProfileContainer";
 
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -23,7 +24,7 @@ function App() {
       <Nav />
       <Router>
         <Home path="/" />
-        <UserProfile path="/user" />
+        <GetUserProfileContainer path="/user" />
         <CreateUserProfileContainer path="/create_user" />
         <EditUserProfile path="/edit_user" />
         <ClimbList path="/climbs" />

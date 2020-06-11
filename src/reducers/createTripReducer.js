@@ -35,12 +35,6 @@ export const createTripReducer = (state = initialState, action) => {
     case CREATE_TRIP_ERROR:
       return {
         ...state,
-        location: null,
-        dateRange: {
-          start: null,
-          end: null,
-        },
-        attendees: [],
         status: action.status,
       };
     default:

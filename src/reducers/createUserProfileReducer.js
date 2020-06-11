@@ -34,27 +34,11 @@ export const createUserProfileReducer = (state = initialState, action) => {
     case CREATE_USER_PROFILE_SUCCESS:
       return {
         ...state,
-        username: null,
-        firstname: null,
-        lastname: null,
-        skillLevel: {
-          high: null,
-          low: null,
-        },
-        avatar: null,
         status: action.type,
       };
     case CREATE_USER_PROFILE_ERROR:
       return {
         ...state,
-        username: null,
-        firstname: null,
-        lastname: null,
-        skillLevel: {
-          high: null,
-          low: null,
-        },
-        avatar: null,
         status: action.type,
       };
     default:

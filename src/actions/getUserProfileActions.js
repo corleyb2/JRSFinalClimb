@@ -1,19 +1,22 @@
 import axios from "axios";
+// import Storage from "aws-amplify";
+// import { v4 as uuid } from "uuid";
 
 export const GET_USER_PROFILE_REQUEST = "GET_USER_PROFILE_REQUEST";
 export const GET_USER_PROFILE_SUCCESS = "GET_USER_PROFILE_SUCCESS";
 export const GET_USER_PROFILE_ERROR = "GET_USER_PROFILE_ERROR";
 
-const getUserProfileRequest = () => {
+const getUserProfileRequest = (profile) => {
   return {
     type: GET_USER_PROFILE_REQUEST,
   };
 };
 
-const getUserProfileSuccess = (profile) => {
+const getUserProfileSuccess = (profileResponse, avatarResponse) => {
   return {
     type: GET_USER_PROFILE_SUCCESS,
-    profile: profile,
+    profile: profileResponse,
+    avatar: avatarResponse,
   };
 };
 
@@ -23,23 +26,45 @@ const getUserProfileError = () => {
   };
 };
 
-const attemptGetUserProfile = async (dispatch, profile) => {
-  dispatch(getUserProfileRequest(profile));
+const attemptGetUserProfile = async (dispatch) => {
+  dispatch(getUserProfileRequest());
   try {
-    //get username to here
-    await axios({
+    //establish username here - using auth?  temporary hard code.
+    const username = "test1";
+    const avatarResponse = null;
+    const dbResponse = await axios({
       method: "GET",
-      url: `http://localhost:4000/user?_username=${username}`,
-    }).then((response) => {
-      console.log("response", response);
-      dispatch(getUserProfileSuccess(profile));
+      url: `http://localhost:4000/user`,
+      data: {
+        username: username,
+      },
+      header: {
+        "Content-Type": "application/json",
+      },
+    }).then((dbResponse) => {
+      const profileResponse = dbResponse.data;
+      console.log("finding profile", profileResponse);
+      dispatch(getUserProfileSuccess(profileResponse, avatarResponse));
+      // navigate("/user");
     });
+    // if (response.data[0][0] == undefined) {
+    //   let response = undefined;
+    //   let avatar = undefined;
+    //   dispatch(getUserProfileSuccess(response, avatar));
+    // } else {
+    //   console.log(response.data[0][0]);
+    //   const uuid = response.data[0][0].avatar;
+    //   const avatar = await Storage.get("profilepics/" + uuid, {
+    //     // level: "protected",
+    //     contentType: "image/png",
+    //   });
+    //   const profileResp = response.data[0][0];
   } catch (error) {
     dispatch(getUserProfileError());
-    console.error("Error creating profile", error);
+    console.error("Error finding profile", error);
   }
 };
 
-export const getProfileInjector = (dispatch) => {
+export const getUserProfileInjector = (dispatch) => {
   return (profile) => attemptGetUserProfile(dispatch, profile);
 };
