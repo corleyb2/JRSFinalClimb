@@ -27,9 +27,11 @@ function App() {
         <GetUserProfileContainer path="/user" />
         <CreateUserProfileContainer path="/create_user" />
         <EditUserProfile path="/edit_user" />
-        <ClimbList path="/climbs" />
+        <ClimbList path="/climbs">
+          <ClimbPage path=":climbId" />
+        </ClimbList>
+
         <CreateClimbContainer path="/create_climb" />
-        {/* <ClimbPage path=":invoiceId" /> */}
         <CreateTripContainer path="/plan_trip" />
       </Router>
     </div>
