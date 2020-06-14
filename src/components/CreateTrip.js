@@ -14,7 +14,7 @@ const CreateTrip = () => {
     try {
       let tripToCreate = {
         location: "TestLocation",
-        //hard coded, will need to be
+        //hard coded, will need to be pulled from auth
         dateRange: {
           start: startDateInput.value,
           end: endDateInput.value,

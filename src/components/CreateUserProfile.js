@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { navigate } from "@reach/router";
 
 const styles = {
   root: {
@@ -10,7 +12,7 @@ const styles = {
   },
 };
 
-const CreateUserProfile = ({ boundCreateProfile }) => {
+const CreateUserProfile = () => {
   let firstnameInput,
     lastnameInput,
     usernameInput,
@@ -18,25 +20,44 @@ const CreateUserProfile = ({ boundCreateProfile }) => {
     skillHighInput,
     skillLowInput;
 
+  async function postNewUser() {
+    try {
+      let profileToCreate = {
+        username: usernameInput.value,
+        password: passwordInput.value,
+        firstname: firstnameInput.value,
+        lastname: lastnameInput.value,
+        skillLevel: {
+          high: Number(skillHighInput.value),
+          low: Number(skillLowInput.value),
+        },
+        // file: file ? file : "",
+        // avatar: imageResponse === "" ? "" : imageResponse.key.split("/")[1],
+      };
+      console.log("ProfileToCreate", profileToCreate);
+      const response = await axios({
+        method: "POST",
+        url: "http://localhost:4000/user",
+        data: profileToCreate,
+        header: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        console.log("response", response);
+        // navigate("/user");
+      });
+    } catch (error) {
+      console.error("Error creating profile", error);
+    }
+  }
+
   return (
     <div>
       <form
         style={styles.root}
         onSubmit={async (e) => {
           e.preventDefault();
-          boundCreateProfile &&
-            (await boundCreateProfile({
-              username: usernameInput.value,
-              password: passwordInput.value,
-              firstname: firstnameInput.value,
-              lastname: lastnameInput.value,
-              skillLevel: {
-                high: Number(skillHighInput.value),
-                low: Number(skillLowInput.value),
-              },
-              // file: file ? file : "",
-            }));
-          // navigate to profile page
+          postNewUser();
         }}
       >
         <br />
