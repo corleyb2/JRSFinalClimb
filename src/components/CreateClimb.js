@@ -12,7 +12,7 @@ const styles = {
   },
 };
 
-const CreateClimb = ({ boundCreateClimb }) => {
+const CreateClimb = () => {
   let nameInput, townInput, stateInput, zipInput, descriptionInput;
 
   async function postClimb() {

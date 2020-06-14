@@ -3,10 +3,6 @@ import "./App.css";
 
 import { Router } from "@reach/router";
 
-import CreateUserProfileContainer from "./containers/CreateUserProfileContainer";
-import CreateTripContainer from "./containers/CreateTripContainer";
-import GetUserProfileContainer from "./containers/GetUserProfileContainer";
-
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import ClimbList from "./components/ClimbList";
@@ -15,6 +11,7 @@ import CreateClimb from "./components/CreateClimb";
 import CreateTrip from "./components/CreateTrip";
 import EditUserProfile from "./components/EditUserProfile";
 import UserProfile from "./components/UserProfile";
+import CreateUserProfile from "./components/CreateUserProfile";
 
 function App() {
   return (
@@ -22,13 +19,13 @@ function App() {
       <Nav />
       <Router>
         <Home path="/" />
-        <GetUserProfileContainer path="/user" />
-        <CreateUserProfileContainer path="/create_user" />
+        <UserProfile path="/user" />
+        <CreateUserProfile path="/create_user" />
         <EditUserProfile path="/edit_user" />
         <ClimbList path="/climbs" />
         <ClimbPage path="/climbs/:climbId" />
         <CreateClimb path="/create_climb" />
-        <CreateTripContainer path="/plan_trip" />
+        <CreateTrip path="/plan_trip" />
       </Router>
     </div>
   );
