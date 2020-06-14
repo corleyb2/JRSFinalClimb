@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { navigate } from "@reach/router";
+import axios from "axios";
 
 import CreateTrip from "./CreateTrip";
 
@@ -7,20 +9,39 @@ import CreateTrip from "./CreateTrip";
 
 //Plan Trip should be accessible on click from here
 
-const ClimbPage = ({ climb }) => {
-  console.log("climb", climb);
+const ClimbPage = ({ climbId }) => {
+  console.log("climbId", climbId);
+  const [fetchedClimb, setFetchedClimb] = useState({});
+
+  useEffect(() => {
+    async function fetchClimbDetails() {
+      const request = await axios({
+        method: "GET",
+        url: `http://localhost:4000/climb?_id=${climbId}`,
+        header: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("request from ClimbPage", request.data);
+      setFetchedClimb(request.data);
+    }
+    fetchClimbDetails();
+  }, []);
 
   return (
     <div>
       <br />
       <br />
       <br />
-      <h2>{climb.name}</h2>
-      <h4>{climb.description}</h4>
-      <p>{climb.location.state}</p>
-      <p>{climb.location.town}</p>
-      <p>{climb.location.zip}</p>
-      <p>{climb.description}</p>
+      <p> {fetchedClimb.name}</p>
+      {/* <p> {fetchedClimb.location.town}</p>
+      <p>{fetchedClimb.location.state}</p>
+      <p>{fetchedClimb.location.zip}</p> */}
+      <p>{fetchedClimb.description}</p>
+      {/* <p> Match {fetchedClimb[0]._id}</p> */}
+      <button type="button" onClick={navigate("/climbs")}>
+        Cancel
+      </button>
     </div>
   );
 };

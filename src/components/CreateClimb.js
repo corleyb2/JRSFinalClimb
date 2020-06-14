@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { navigate } from "@reach/router";
 
 const styles = {
   root: {
@@ -13,24 +15,51 @@ const styles = {
 const CreateClimb = ({ boundCreateClimb }) => {
   let nameInput, townInput, stateInput, zipInput, descriptionInput;
 
+  async function postClimb() {
+    try {
+      let climbToCreate = {
+        name: nameInput.value,
+        location: {
+          town: townInput.value,
+          state: stateInput.value,
+          zip: Number(zipInput.value),
+        },
+        description: descriptionInput.value,
+        // photos: imageResponse === "" ? "" : imageResponse.key.split("/")[1],
+      };
+      console.log("ClimbToCreate", climbToCreate);
+      await axios({
+        method: "POST",
+        url: "http://localhost:4000/climb",
+        data: climbToCreate,
+        header: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        console.log("climb creation response", response);
+      });
+    } catch (error) {
+      console.error("cannot create climb", error);
+    }
+  }
+
   return (
     <div>
       <form
         style={styles.root}
         onSubmit={async (e) => {
           e.preventDefault();
-          boundCreateClimb &&
-            (await boundCreateClimb({
-              name: nameInput.value,
-              location: {
-                town: townInput.value,
-                state: stateInput.value,
-                zip: Number(zipInput.value),
-              },
-              description: descriptionInput.value,
-              // file: file ? file : "",
-            }));
-          // navigate back to list
+          await postClimb({
+            name: nameInput.value,
+            location: {
+              town: townInput.value,
+              state: stateInput.value,
+              zip: Number(zipInput.value),
+            },
+            description: descriptionInput.value,
+            // file: file ? file : "",
+          });
+          navigate("/climb_list");
         }}
       >
         <br />

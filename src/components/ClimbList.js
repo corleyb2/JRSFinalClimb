@@ -9,9 +9,6 @@ import ClimbListItem from "./ClimbListItem";
 //accessible from click of list
 
 export const ClimbList = () => {
-  // useEffect(() => {
-  //   boundGetAllClimbs();
-  // }, []);
   const [climbs, setClimbs] = useState([]);
   const [selectedClimb, setSelectedClimb] = useState("");
 
@@ -24,8 +21,6 @@ export const ClimbList = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log("request.body inside UE", request.data[0]);
-      console.log("request[2]", request.data[2]);
       setClimbs(request.data);
     }
     getAllClimbs();

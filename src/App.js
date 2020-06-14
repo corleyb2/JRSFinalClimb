@@ -1,11 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import { Router } from "@reach/router";
 
 import CreateUserProfileContainer from "./containers/CreateUserProfileContainer";
-import CreateClimbContainer from "./containers/CreateClimbContainer";
 import CreateTripContainer from "./containers/CreateTripContainer";
 import GetUserProfileContainer from "./containers/GetUserProfileContainer";
 
@@ -27,11 +25,9 @@ function App() {
         <GetUserProfileContainer path="/user" />
         <CreateUserProfileContainer path="/create_user" />
         <EditUserProfile path="/edit_user" />
-        <ClimbList path="/climbs">
-          <ClimbPage path=":climbId" />
-        </ClimbList>
-
-        <CreateClimbContainer path="/create_climb" />
+        <ClimbList path="/climbs" />
+        <ClimbPage path="/climbs/:climbId" />
+        <CreateClimb path="/create_climb" />
         <CreateTripContainer path="/plan_trip" />
       </Router>
     </div>
