@@ -1,0 +1,15 @@
+{
+    "solofinal": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-solofinalclimb-solofinal-180221-authRole",
+            "UnauthRoleArn": "arn:aws:iam::226507624813:role/amplify-solofinalclimb-solofinal-180221-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::226507624813:role/amplify-solofinalclimb-solofinal-180221-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-solofinalclimb-solofinal-180221-deployment",
+            "UnauthRoleName": "amplify-solofinalclimb-solofinal-180221-unauthRole",
+            "StackName": "amplify-solofinalclimb-solofinal-180221",
+            "StackId": "arn:aws:cloudformation:us-east-1:226507624813:stack/amplify-solofinalclimb-solofinal-180221/bb87f1f0-ae8a-11ea-9425-0ec9495d5707",
+            "AmplifyAppId": "d460u94vn5ld0"
+        }
+    }
+}
