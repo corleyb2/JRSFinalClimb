@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    //uuid on action, need to setup S3 bucket
   },
   // myTrips: {
   //   object with date start, date end, location, and accompanying climbers

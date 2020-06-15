@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-
 import { Router } from "@reach/router";
+import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -31,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);

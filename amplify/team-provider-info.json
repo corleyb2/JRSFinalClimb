@@ -10,6 +10,11 @@
             "StackName": "amplify-solofinalclimb-solofinal-180221",
             "StackId": "arn:aws:cloudformation:us-east-1:226507624813:stack/amplify-solofinalclimb-solofinal-180221/bb87f1f0-ae8a-11ea-9425-0ec9495d5707",
             "AmplifyAppId": "d460u94vn5ld0"
+        },
+        "categories": {
+            "auth": {
+                "solofinalclimbe45d8932": {}
+            }
         }
     }
 }

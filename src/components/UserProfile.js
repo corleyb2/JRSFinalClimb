@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Storage, Auth } from "aws-amplify";
+
+import EditUserProfile from "./EditUserProfile";
 
 //will transition to EditProfile page onclick
 
 const UserProfile = () => {
   const [currentUser, setCurrentUser] = useState({});
+  const [toggleEdit, setToggleEdit] = useState(false);
 
   useEffect(() => {
     async function getUserProfile() {
-      //establish username here - using auth?  temporary hard code.
-      const username = "test1";
+      const useAuth = await Auth.currentUserInfo();
+      const gotUser = await useAuth.username;
       const avatarResponse = null;
       const response = await axios({
         method: "GET",
-        url: `http://localhost:4000/user`,
-        data: {
-          username: username,
-        },
+        url: `http://localhost:4000/user?username=${gotUser}`,
         header: {
           "Content-Type": "application/json",
         },
       }).then((response) => {
         const profileResponse = response.data;
-        console.log("finding user.2", profileResponse.username);
         setCurrentUser(profileResponse);
         // navigate("/user");
       });
@@ -42,13 +42,23 @@ const UserProfile = () => {
     getUserProfile();
   }, []);
 
-  return (
-    <div>
-      <h2>View User Profile</h2>
-      <p>{currentUser.username}</p>
-      <p>{currentUser.firstname}</p>
-      <p>{currentUser.lastname}</p>
-    </div>
+  return toggleEdit ? (
+    <>
+      <EditUserProfile
+        setToggleEdit={setToggleEdit}
+        currentUser={currentUser}
+      />
+    </>
+  ) : (
+    <>
+      <div>
+        <h2>View User Profile</h2>
+        <p>{currentUser.username}</p>
+        <p>{currentUser.firstname}</p>
+        <p>{currentUser.lastname}</p>
+      </div>
+      <button onClick={() => setToggleEdit(!toggleEdit)}>Edit Profile</button>
+    </>
   );
 };
 

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { Storage, Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 
 const styles = {
@@ -13,30 +15,50 @@ const styles = {
 };
 
 const CreateUserProfile = () => {
+  const [avatarFile, setAvatarFile] = useState("");
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const getUsername = async () => {
+      const useAuth = await Auth.currentUserInfo();
+      const gotUser = await useAuth.username;
+      setUsername(gotUser);
+    };
+    getUsername();
+  }, []);
+
   let firstnameInput,
     lastnameInput,
-    usernameInput,
     passwordInput,
     skillHighInput,
     skillLowInput;
 
   async function postNewUser() {
     try {
+      let imageResponse = "";
+      if (avatarFile !== "") {
+        let extension = avatarFile.name.split(".")[1];
+        let uuidName = uuidv4() + "." + extension;
+        imageResponse = await Storage.put("finale/" + uuidName, avatarFile, {
+          // level: "public",
+          contentType: "image/png",
+        });
+      }
+      console.log("43", imageResponse);
       let profileToCreate = {
-        username: usernameInput.value,
-        password: passwordInput.value,
+        username: username,
+        // password: passwordInput.value,
         firstname: firstnameInput.value,
         lastname: lastnameInput.value,
         skillLevel: {
           high: Number(skillHighInput.value),
           low: Number(skillLowInput.value),
         },
-        // file: file ? file : "",
-        // avatar: imageResponse === "" ? "" : imageResponse.key.split("/")[1],
+        avatar: imageResponse === "" ? "" : imageResponse.key.split("/")[1],
       };
-      console.log("ProfileToCreate", profileToCreate);
+      console.log("ProfileToCreate", profileToCreate.avatar);
       const response = await axios({
-        method: "POST",
+        method: "post",
         url: "http://localhost:4000/user",
         data: profileToCreate,
         header: {
@@ -44,12 +66,29 @@ const CreateUserProfile = () => {
         },
       }).then((response) => {
         console.log("response", response);
-        // navigate("/user");
+        navigate("/user");
       });
     } catch (error) {
       console.error("Error creating profile", error);
     }
   }
+
+  // async function issueUuid(avatarFile) {
+  //   if (avatarFile !== "") {
+  //     let fileExtension = avatarFile.name.split(".")[1];
+  //     let uuidName = uuidv4() + "." + fileExtension;
+  //     let imageResponse = await Storage.put(
+  //       "test/" + uuidName,
+  //       "Protected Content",
+  //       {
+  //         level: "protected",
+  //         contentType: "image/png",
+  //       }
+  //     )
+  //       .then((result) => console.log("s3 added", result))
+  //       .catch((err) => console.error("can't add image", err));
+  //   }
+  // }
 
   return (
     <div>
@@ -64,20 +103,10 @@ const CreateUserProfile = () => {
         <br />
         <br />
         <br />
+        <br />
+        <br /> <br /> <br />
         <label htmlFor="username">Username:</label>
-        <input
-          id="username"
-          type="text"
-          placeholder="Username"
-          ref={(node) => (usernameInput = node)}
-        />
-        {/* <Input
-          variant="outlined"
-          id="username"
-          type="text"
-          placeholder="Username"
-          ref={(node) => (usernameInput = node)}
-        /> */}
+        <p>{username}</p>
         <label htmlFor="password">Password:</label>
         <input
           id="password"
@@ -86,7 +115,6 @@ const CreateUserProfile = () => {
           ref={(node) => (passwordInput = node)}
         />
         <label htmlFor="firstname">First Name:</label>
-
         <input
           id="firstname"
           type="text"
@@ -100,7 +128,6 @@ const CreateUserProfile = () => {
           placeholder="Last Name"
           ref={(node) => (lastnameInput = node)}
         />
-
         <label htmlFor="skillHigh">Skill Level - Top:</label>
         <input
           id="skillHigh"
@@ -109,7 +136,6 @@ const CreateUserProfile = () => {
           max="12"
           ref={(node) => (skillHighInput = node)}
         />
-
         <label htmlFor="skillLow">Skill Level - Low End</label>
         <input
           id="skillLow"
@@ -118,6 +144,15 @@ const CreateUserProfile = () => {
           max="12"
           ref={(node) => (skillLowInput = node)}
         />
+        <label htmlFor="avatar">Upload an Avatar</label>
+        <input
+          type="file"
+          accept="image/*"
+          id="s3-avatar"
+          onChange={(e) => {
+            setAvatarFile(e.target.files[0]);
+          }}
+        />
         <p>
           This site uses the V Scale to grade climbing aptitude. Not familiar?
           Click below to find out more.
@@ -125,15 +160,6 @@ const CreateUserProfile = () => {
         <p>
           https://www.rei.com/learn/expert-advice/climbing-bouldering-rating.html
         </p>
-        {/* <label htmlFor="avatar">Upload a Photo As Your Avatar:</label>
-        <input
-          type="file"
-          accept="image/*"
-          id="s3-avatar"
-          onChange={(e) => {
-            setFile(e.target.files[0]);
-          }}
-        /> */}
         <button type="submit">Submit</button>
       </form>
     </div>
