@@ -16,15 +16,15 @@ const styles = {
 
 const CreateUserProfile = () => {
   const [avatarFile, setAvatarFile] = useState("");
-  const [username, setUsername] = useState("");
+  const [authUsername, setAuthUsername] = useState("");
 
   useEffect(() => {
-    const getUsername = async () => {
-      const useAuth = await Auth.currentUserInfo();
-      const gotUser = await useAuth.username;
-      setUsername(gotUser);
+    const extractUsername = async () => {
+      const fromAuth = await Auth.currentUserInfo();
+      const gotUser = await fromAuth.username;
+      setAuthUsername(gotUser);
     };
-    getUsername();
+    extractUsername();
   }, []);
 
   let firstnameInput,
@@ -46,7 +46,7 @@ const CreateUserProfile = () => {
       }
       console.log("43", imageResponse);
       let profileToCreate = {
-        username: username,
+        username: authUsername,
         // password: passwordInput.value,
         firstname: firstnameInput.value,
         lastname: lastnameInput.value,
@@ -106,7 +106,7 @@ const CreateUserProfile = () => {
         <br />
         <br /> <br /> <br />
         <label htmlFor="username">Username:</label>
-        <p>{username}</p>
+        <p>{authUsername}</p>
         <label htmlFor="password">Password:</label>
         <input
           id="password"

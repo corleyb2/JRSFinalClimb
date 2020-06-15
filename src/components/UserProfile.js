@@ -46,6 +46,7 @@ const UserProfile = () => {
     <>
       <EditUserProfile
         setToggleEdit={setToggleEdit}
+        toggleEdit={toggleEdit}
         currentUser={currentUser}
       />
     </>
