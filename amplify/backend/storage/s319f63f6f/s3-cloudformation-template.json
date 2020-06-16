@@ -81,31 +81,8 @@
 		},
 		"triggerFunction": {
 			"Type": "String"
-		},
+		}
 	
-    
-    
-        "authsolofinalclimbe45d8932UserPoolId": {
-            "Type": "String",
-            "Default": "authsolofinalclimbe45d8932UserPoolId"
-        },
-        
-        
-    
-        "authuserPoolGroupsadminGroupRole": {
-            "Type": "String",
-            "Default": "authuserPoolGroupsadminGroupRole"
-        },
-        
-        
-    
-        "authuserPoolGroupsusersGroupRole": {
-            "Type": "String",
-            "Default": "authuserPoolGroupsusersGroupRole"
-        }
-        
-        
-    
 
 	},
 	"Conditions": {
@@ -253,94 +230,6 @@
 				}
 			}
 		},
-      
-      
-	    "adminGroupPolicy": {
-	      "Type": "AWS::IAM::Policy",
-	      "Properties": {
-	        "PolicyName": "admin-group-s3-policy",
-	        "Roles": [
-	        	{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authsolofinalclimbe45d8932UserPoolId"
-                          },
-                          "-adminGroupRole"
-                        ]
-                    ]
-                }
-	        ],
-	        "PolicyDocument": {
-	          "Version": "2012-10-17",
-	          "Statement": [
-	            {
-	              "Effect": "Allow",
-	              "Action": ["s3:PutObject","s3:GetObject","s3:ListBucket","s3:DeleteObject"],
-	              "Resource": [
-	                  {
-	                      "Fn::Join": [
-	                          "",
-	                          [
-	                              "arn:aws:s3:::",
-	                              {
-	                                  "Ref": "S3Bucket"
-	                              },
-	                              "/*"
-	                          ]
-	                      ]
-	                  }
-	              ]
-	            }
-	          ]
-	        }
-	      }
-	    },
-      
-	    "usersGroupPolicy": {
-	      "Type": "AWS::IAM::Policy",
-	      "Properties": {
-	        "PolicyName": "users-group-s3-policy",
-	        "Roles": [
-	        	{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authsolofinalclimbe45d8932UserPoolId"
-                          },
-                          "-usersGroupRole"
-                        ]
-                    ]
-                }
-	        ],
-	        "PolicyDocument": {
-	          "Version": "2012-10-17",
-	          "Statement": [
-	            {
-	              "Effect": "Allow",
-	              "Action": ["s3:PutObject","s3:GetObject","s3:ListBucket","s3:DeleteObject"],
-	              "Resource": [
-	                  {
-	                      "Fn::Join": [
-	                          "",
-	                          [
-	                              "arn:aws:s3:::",
-	                              {
-	                                  "Ref": "S3Bucket"
-	                              },
-	                              "/*"
-	                          ]
-	                      ]
-	                  }
-	              ]
-	            }
-	          ]
-	        }
-	      }
-	    },
-      
       
 	    
 		"S3AuthPublicPolicy": {

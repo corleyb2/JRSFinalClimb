@@ -4,13 +4,13 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 
 import ClimbListItem from "./ClimbListItem";
+import CreateTrip from "./CreateTrip";
 
 //details for each climbing location
 //accessible from click of list
 
-export const ClimbList = () => {
+export const ClimbList = (planLocation, setPlanLocation) => {
   const [climbs, setClimbs] = useState([]);
-  const [selectedClimb, setSelectedClimb] = useState("");
 
   useEffect(() => {
     async function getAllClimbs() {
@@ -41,8 +41,8 @@ export const ClimbList = () => {
             <div key={climb._id}>
               <ClimbListItem
                 climb={climb}
-                setSelectedClimb={setSelectedClimb}
-                selectedClimb={selectedClimb}
+                planLocation={planLocation}
+                setPlanLocation={setPlanLocation}
               />
             </div>
           ))}

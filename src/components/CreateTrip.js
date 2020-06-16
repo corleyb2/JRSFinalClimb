@@ -4,9 +4,9 @@ import { Auth } from "aws-amplify";
 
 //thinking popover?
 
-const CreateTrip = () => {
+const CreateTrip = ({ planLocation }) => {
   const [currentUser, setCurrentUser] = useState("");
-  //local state of current climb pulled down from ClimbPage component
+  console.log("climb from CreateTrip", planLocation);
 
   useEffect(() => {
     async function getUserProfile() {
@@ -23,7 +23,6 @@ const CreateTrip = () => {
   async function submitCreatedTrip() {
     try {
       let tripToCreate = {
-        //how to get from Climb Page?  Redirection is killing it
         location: "TestLocation",
         dateRange: {
           start: startDateInput.value,
@@ -56,7 +55,7 @@ const CreateTrip = () => {
         }}
       >
         <h2>Trip Planning</h2>
-        <label htmlFor="climbName">Mountain</label>
+        <label htmlFor="climbName"></label>
         <p> Location hard coded for testing</p>
         <label htmlFor="startDate">End Date</label>
         <input

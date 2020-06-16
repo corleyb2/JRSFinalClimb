@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "solofinalclimbe45d8932_identitypool_e45d8932",
+    "identityPoolName": "jrssolo3438032c3_identitypool_438032c3",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "solofie45d8932",
-    "userPoolName": "solofinalclimbe45d8932_userpool_e45d8932",
+    "resourceNameTruncated": "jrssol438032c3",
+    "userPoolName": "jrssolo3438032c3_userpool_438032c3",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "solofie45d8932_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "jrssol438032c3_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "solofinalclimbe45d8932",
+    "resourceName": "jrssolo3438032c3",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -44,20 +44,7 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
-    "userPoolGroupList": [
-        "admin",
-        "users"
-    ],
-    "dependsOn": [],
-    "thirdPartyAuth": false,
-    "userPoolGroups": true,
-    "adminQueries": true,
-    "triggers": "{}",
-    "hostedUI": false,
-    "adminQueryGroup": "admin",
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": []
+    "useDefault": "default",
+    "userPoolGroupList": [],
+    "dependsOn": []
 }

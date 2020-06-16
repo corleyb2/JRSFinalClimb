@@ -12,6 +12,10 @@ const styles = {
     margin: 10,
     width: "25ch",
   },
+  contentLine: {
+    display: "flex",
+    flexDirection: "row",
+  },
 };
 
 const CreateUserProfile = () => {
@@ -73,25 +77,8 @@ const CreateUserProfile = () => {
     }
   }
 
-  // async function issueUuid(avatarFile) {
-  //   if (avatarFile !== "") {
-  //     let fileExtension = avatarFile.name.split(".")[1];
-  //     let uuidName = uuidv4() + "." + fileExtension;
-  //     let imageResponse = await Storage.put(
-  //       "test/" + uuidName,
-  //       "Protected Content",
-  //       {
-  //         level: "protected",
-  //         contentType: "image/png",
-  //       }
-  //     )
-  //       .then((result) => console.log("s3 added", result))
-  //       .catch((err) => console.error("can't add image", err));
-  //   }
-  // }
-
   return (
-    <div>
+    <div style={styles.formStyle}>
       <form
         style={styles.root}
         onSubmit={async (e) => {
@@ -105,45 +92,53 @@ const CreateUserProfile = () => {
         <br />
         <br />
         <br /> <br /> <br />
-        <label htmlFor="username">Username:</label>
-        <p>{authUsername}</p>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          ref={(node) => (passwordInput = node)}
-        />
-        <label htmlFor="firstname">First Name:</label>
-        <input
-          id="firstname"
-          type="text"
-          placeholder="First Name"
-          ref={(node) => (firstnameInput = node)}
-        />
-        <label htmlFor="lastname">Last Name:</label>
-        <input
-          id="lastname"
-          type="text"
-          placeholder="Last Name"
-          ref={(node) => (lastnameInput = node)}
-        />
-        <label htmlFor="skillHigh">Skill Level - Top:</label>
-        <input
-          id="skillHigh"
-          type="number"
-          min="0"
-          max="12"
-          ref={(node) => (skillHighInput = node)}
-        />
-        <label htmlFor="skillLow">Skill Level - Low End</label>
-        <input
-          id="skillLow"
-          type="number"
-          min="0"
-          max="12"
-          ref={(node) => (skillLowInput = node)}
-        />
+        <div style={styles.contentLine}>
+          <label htmlFor="username">Username:</label>
+          <p>{authUsername}</p>
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            ref={(node) => (passwordInput = node)}
+          />
+        </div>
+        <div style={styles.contentLine}>
+          <label htmlFor="firstname">First Name:</label>
+          <input
+            id="firstname"
+            type="text"
+            placeholder="First Name"
+            ref={(node) => (firstnameInput = node)}
+          />
+        </div>
+        <div style={styles.contentLine}>
+          <label htmlFor="lastname">Last Name:</label>
+          <input
+            id="lastname"
+            type="text"
+            placeholder="Last Name"
+            ref={(node) => (lastnameInput = node)}
+          />
+        </div>
+        <div style={styles.contentLine}>
+          <label htmlFor="skillHigh">Skill Level - Top:</label>
+          <input
+            id="skillHigh"
+            type="number"
+            min="0"
+            max="12"
+            ref={(node) => (skillHighInput = node)}
+          />
+          <label htmlFor="skillLow">Skill Level - Low End</label>
+          <input
+            id="skillLow"
+            type="number"
+            min="0"
+            max="12"
+            ref={(node) => (skillLowInput = node)}
+          />
+        </div>
         <label htmlFor="avatar">Upload an Avatar</label>
         <input
           type="file"

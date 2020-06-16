@@ -12,7 +12,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-const ClimbListItem = ({ climb }) => {
+const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
   const [renderPopover, setRenderPopover] = useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -54,7 +54,6 @@ const ClimbListItem = ({ climb }) => {
             onClick={() => {
               setRenderPopover(true);
               handleOpen();
-              // navigate(`/climbs/${climb._id}`);
             }}
           >
             Click to See Details
@@ -62,10 +61,18 @@ const ClimbListItem = ({ climb }) => {
         </CardActions>
       </Card>
       {renderPopover !== false ? (
-        <ClimbPage climb={climb} handleClose={handleClose} open={open} />
+        <>
+          <ClimbPage
+            climb={climb}
+            handleClose={handleClose}
+            open={open}
+            planLocation={planLocation}
+            setPlanLocation={setPlanLocation}
+          />
+          <br />
+        </>
       ) : (
         <>
-          {" "}
           <br />
         </>
       )}

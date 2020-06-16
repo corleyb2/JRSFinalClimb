@@ -9,6 +9,7 @@ const createUser = async (request, response) => {
     const createdUser = await UserModel.create(userInstance);
     response.send(createdUser);
   } catch (error) {
+    console.error(error);
     response.status(500).send(error);
   }
 };

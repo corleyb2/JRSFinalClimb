@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { navigate } from "@reach/router";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -18,8 +20,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClimbPage({ climb, handleClose, open }) {
+export default function ClimbPage({
+  climb,
+  handleClose,
+  open,
+  setPlanLocation,
+  planLocation,
+}) {
   const classes = useStyles();
+
+  console.log("climb outside function", climb);
+
+  // useEffect(() => {
+  //   setPlanLocation(climb);
+  // }, []);
+
+  // async function goToPlanner(climb) {
+  //   console.log("climb", climb);
+  //   console.log("plan location", planLocation);
+  //   console.log(setPlanLocation(climb));
+  // await setPlanLocation(climb);
+  // await navigate("/plan_trip");
+  // }
 
   return (
     <div>

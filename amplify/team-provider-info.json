@@ -1,19 +1,19 @@
 {
-    "solofinal": {
+    "finalenv": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-solofinalclimb-solofinal-180221-authRole",
-            "UnauthRoleArn": "arn:aws:iam::226507624813:role/amplify-solofinalclimb-solofinal-180221-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::226507624813:role/amplify-solofinalclimb-solofinal-180221-authRole",
+            "AuthRoleName": "amplify-jrssolo3-finalenv-94217-authRole",
+            "UnauthRoleArn": "arn:aws:iam::226507624813:role/amplify-jrssolo3-finalenv-94217-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::226507624813:role/amplify-jrssolo3-finalenv-94217-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-solofinalclimb-solofinal-180221-deployment",
-            "UnauthRoleName": "amplify-solofinalclimb-solofinal-180221-unauthRole",
-            "StackName": "amplify-solofinalclimb-solofinal-180221",
-            "StackId": "arn:aws:cloudformation:us-east-1:226507624813:stack/amplify-solofinalclimb-solofinal-180221/bb87f1f0-ae8a-11ea-9425-0ec9495d5707",
-            "AmplifyAppId": "d460u94vn5ld0"
+            "DeploymentBucketName": "amplify-jrssolo3-finalenv-94217-deployment",
+            "UnauthRoleName": "amplify-jrssolo3-finalenv-94217-unauthRole",
+            "StackName": "amplify-jrssolo3-finalenv-94217",
+            "StackId": "arn:aws:cloudformation:us-east-1:226507624813:stack/amplify-jrssolo3-finalenv-94217/32d17a40-afd7-11ea-b90b-0ac97ebd7097",
+            "AmplifyAppId": "d35rs0txcfc9e8"
         },
         "categories": {
             "auth": {
-                "solofinalclimbe45d8932": {}
+                "jrssolo3438032c3": {}
             }
         }
     }
