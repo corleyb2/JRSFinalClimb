@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 
 import { navigate } from "@reach/router";
+import { AmplifySignOut } from "@aws-amplify/ui-react";
 
 const drawerWidth = 240;
 
@@ -243,11 +244,12 @@ export default function Nav({ boundLogOut }) {
           <button
             className={classes.signOut}
             onClick={() => {
-              boundLogOut();
               navigate("/");
               handleDrawerClose();
             }}
-          ></button>
+          >
+            <AmplifySignOut />
+          </button>
         </MenuList>
       </Drawer>
     </div>

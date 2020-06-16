@@ -4,20 +4,25 @@ import { Auth } from "aws-amplify";
 //maybe some onclicks?  Or will Nav handle all of this?
 
 const Home = () => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     const getUsername = async () => {
       const useAuth = await Auth.currentUserInfo();
-      const gotUser = await useAuth.username;
-      setUsername(gotUser);
+      if (useAuth !== null) {
+        console.log(useAuth);
+        const gotUser = await useAuth.username;
+        console.log(gotUser);
+        setUsername(gotUser);
+      }
     };
     getUsername();
   }, []);
 
-  return username !== "" ? (
+  return username !== null ? (
     <div>
-      <br /> <br />
+      <br />
+      <br />
       <br />
       <br />
       <h2>Welcome to Home Page, {username}</h2>

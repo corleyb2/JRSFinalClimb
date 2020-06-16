@@ -1,49 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { navigate } from "@reach/router";
-import axios from "axios";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
-import CreateTrip from "./CreateTrip";
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
-//details for each climbing location
-//accessible from click of list
-
-//Plan Trip should be accessible on click from here
-
-const ClimbPage = ({ climbId }) => {
-  console.log("climbId", climbId);
-  const [fetchedClimb, setFetchedClimb] = useState({});
-
-  useEffect(() => {
-    async function fetchClimbDetails() {
-      const request = await axios({
-        method: "GET",
-        url: `http://localhost:4000/climb?_id=${climbId}`,
-        header: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log("request from ClimbPage", request.data);
-      setFetchedClimb(request.data);
-    }
-    fetchClimbDetails();
-  }, []);
+export default function ClimbPage({ climb, handleClose, open }) {
+  const classes = useStyles();
 
   return (
     <div>
-      <br />
-      <br />
-      <br />
-      <p> {fetchedClimb.name}</p>
-      {/* <p> {fetchedClimb.location.town}</p>
-      <p>{fetchedClimb.location.state}</p>
-      <p>{fetchedClimb.location.zip}</p> */}
-      <p>{fetchedClimb.description}</p>
-      {/* <p> Match {fetchedClimb[0]._id}</p> */}
-      <button type="button" onClick={navigate("/climbs")}>
-        Cancel
-      </button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">{climb.name}</h2>
+            <p id="transition-modal-description">{climb.description}</p>
+            <button>Plan A Trip!</button>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
-};
-
-export default ClimbPage;
+}

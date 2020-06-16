@@ -24,7 +24,9 @@ export const ClimbList = () => {
       setClimbs(request.data);
     }
     getAllClimbs();
-  }, [setClimbs]);
+  }, []);
+
+  const classes = useStyles();
 
   return (
     <>
@@ -34,7 +36,7 @@ export const ClimbList = () => {
         <br />
         <h2>Climb List Page</h2>
         <p>Input here to search (by zip?)</p>
-        <div>
+        <div className={classes.root}>
           {climbs.map((climb) => (
             <div key={climb._id}>
               <ClimbListItem
@@ -54,7 +56,9 @@ export default ClimbList;
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   media: {
     height: 140,

@@ -1,7 +1,12 @@
 import React from "react";
 import "./App.css";
 import { Router } from "@reach/router";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import {
+  withAuthenticator,
+  AmplifyAuthenticator,
+  AmplifySignIn,
+  AmplifySignUp,
+} from "@aws-amplify/ui-react";
 
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -17,16 +22,20 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      <Router>
-        <Home path="/" />
-        <UserProfile path="/user" />
-        <CreateUserProfile path="/create_user" />
-        <EditUserProfile path="/edit_user" />
-        <ClimbList path="/climbs" />
-        <ClimbPage path="/climbs/:climbId" />
-        <CreateClimb path="/create_climb" />
-        <CreateTrip path="/plan_trip" />
-      </Router>
+      <AmplifyAuthenticator>
+        <AmplifySignIn slot="sign-in" />
+        <AmplifySignUp slot="sign-up" />
+        <Router>
+          <Home path="/" />
+          <UserProfile path="/user" />
+          <CreateUserProfile path="/create_user" />
+          <EditUserProfile path="/edit_user" />
+          <ClimbList path="/climbs" />
+          <ClimbPage path="/climbs/:climbId" />
+          <CreateClimb path="/create_climb" />
+          <CreateTrip path="/plan_trip" />
+        </Router>
+      </AmplifyAuthenticator>
     </div>
   );
 }

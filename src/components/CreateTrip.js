@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Auth } from "aws-amplify";
 
 //thinking popover?
 
 const CreateTrip = () => {
+  const [currentUser, setCurrentUser] = useState("");
   //local state of current climb pulled down from ClimbPage component
-  //where to pull the current user from? Auth?
+
+  useEffect(() => {
+    async function getUserProfile() {
+      const useAuth = await Auth.currentUserInfo();
+      const gotUser = await useAuth.username;
+      setCurrentUser(gotUser);
+    }
+    getUserProfile();
+  }, []);
 
   let endDateInput, startDateInput;
   let attendees = [];
@@ -13,14 +23,13 @@ const CreateTrip = () => {
   async function submitCreatedTrip() {
     try {
       let tripToCreate = {
+        //how to get from Climb Page?  Redirection is killing it
         location: "TestLocation",
-        //hard coded, will need to be pulled from auth
         dateRange: {
           start: startDateInput.value,
           end: endDateInput.value,
         },
-        attendees: ["Hard-Coded User"],
-        // attendees: attendees.push("hard-coded user"),
+        attendees: attendees.push(currentUser),
       };
       console.log("TripToCreate", tripToCreate);
       const response = await axios({
@@ -57,9 +66,6 @@ const CreateTrip = () => {
         />
         <label htmlFor="endDate">End Date</label>
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
-        <label htmlFor="loggedInUser">Logged in User</label>
-        <p> Attendees hard coded for testing</p>
-
         <button type="submit">Plan</button>
       </form>
     </>
