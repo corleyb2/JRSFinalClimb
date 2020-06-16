@@ -64,9 +64,11 @@ const ClimbListItem = ({ climb }) => {
       {renderPopover !== false ? (
         <ClimbPage climb={climb} handleClose={handleClose} open={open} />
       ) : (
-        <> </>
+        <>
+          {" "}
+          <br />
+        </>
       )}
-      ;
     </>
   );
 };
@@ -80,12 +82,10 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   contentWrapper: {
-    width: "80vw",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    border: "2px solid black",
   },
 
   media: {
@@ -93,10 +93,10 @@ const useStyles = makeStyles({
     width: 140,
     display: "flex",
     flexDirection: "row",
-    border: "2px solid black",
+    border: "3px dotted red",
   },
   info: {
-    border: "2px solid black",
+    width: "35vw",
   },
   buttonWrapper: {
     display: "flex",
