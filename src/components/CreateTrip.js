@@ -41,7 +41,7 @@ const CreateTrip = ({ planLocation }) => {
   async function submitCreatedTrip() {
     try {
       let tripToCreate = {
-        location: "BunnyRabbit Slopers",
+        location: planLocation.name,
         dateRange: {
           start: startDateInput.value,
           end: endDateInput.value,
@@ -84,7 +84,7 @@ const CreateTrip = ({ planLocation }) => {
         />
         <label htmlFor="endDate">End Date</label>
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
-        <button type="submit">Check for Other Trips</button>
+        <button type="submit">Submit Trip</button>
       </form>
 
       {/* ***Holding Off - weather api call causing infinite loop*** */}
