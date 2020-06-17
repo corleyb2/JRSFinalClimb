@@ -71,9 +71,7 @@ export default function ClimbPage({
             />
             <h2 id="transition-modal-title">{climb.name}</h2>
             <p id="transition-modal-description">{climb.description}</p>
-            <button onClick={() => goToPlanner(planLocation)}>
-              Plan A Trip!
-            </button>
+            <button onClick={() => goToPlanner(climb)}>Plan A Trip!</button>
           </div>
         </Fade>
       </Modal>

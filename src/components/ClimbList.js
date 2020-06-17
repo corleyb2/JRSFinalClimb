@@ -4,7 +4,6 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 
 import ClimbListItem from "./ClimbListItem";
-import CreateTrip from "./CreateTrip";
 
 //details for each climbing location
 //accessible from click of list

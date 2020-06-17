@@ -6,7 +6,7 @@ const CreateTrip = ({ planLocation }) => {
   const [currentUser, setCurrentUser] = useState("");
   const [displayWeather, setDisplayWeather] = useState(false);
   const [forecast, setForecast] = useState({});
-  console.log("climb from CreateTrip", planLocation);
+  console.log("planLocation from CreateTrip", planLocation);
 
   useEffect(() => {
     async function getUserProfile() {
@@ -42,7 +42,7 @@ const CreateTrip = ({ planLocation }) => {
   async function submitCreatedTrip() {
     try {
       let tripToCreate = {
-        location: "TestLocation",
+        location: planLocation.name,
         dateRange: {
           start: startDateInput.value,
           end: endDateInput.value,
@@ -75,7 +75,7 @@ const CreateTrip = ({ planLocation }) => {
       >
         <h2>Trip Planning</h2>
         <label htmlFor="climbName"></label>
-        <p> Location hard coded for testing</p>
+        <p> Planning Trip to {planLocation.name}</p>
         <label htmlFor="startDate">Start Date</label>
         <input
           type="date"
@@ -86,6 +86,8 @@ const CreateTrip = ({ planLocation }) => {
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
         <button type="submit">Plan</button>
       </form>
+
+      {/* ***Holding Off - weather api call causing infinite loop*** */}
       {/* {displayWeather ? <p>Display It</p> : <p>Nothing to Show</p>} */}
       {/* <button onClick={(() => weatherCall(), setDisplayWeather(true))}>
         Check Weather
