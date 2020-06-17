@@ -9,7 +9,7 @@ import CreateTrip from "./CreateTrip";
 //details for each climbing location
 //accessible from click of list
 
-export const ClimbList = (planLocation, setPlanLocation) => {
+export const ClimbList = ({ planLocation, setPlanLocation }) => {
   const [climbs, setClimbs] = useState([]);
 
   useEffect(() => {

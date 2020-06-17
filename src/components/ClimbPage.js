@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
+import { Storage } from "aws-amplify";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -28,20 +29,24 @@ export default function ClimbPage({
   planLocation,
 }) {
   const classes = useStyles();
+  const [imageURL, setImageURL] = useState("");
 
-  console.log("climb outside function", climb);
+  console.log("imageFromS3", imageURL);
 
-  // useEffect(() => {
-  //   setPlanLocation(climb);
-  // }, []);
+  useEffect(() => {
+    async function pullS3Image() {
+      let uuidName = climb.photos[0];
+      let result = await Storage.get("finale/" + uuidName, {
+        contentType: "image/png",
+      }).then((result) => setImageURL(result));
+    }
+    pullS3Image();
+  }, []);
 
-  // async function goToPlanner(climb) {
-  //   console.log("climb", climb);
-  //   console.log("plan location", planLocation);
-  //   console.log(setPlanLocation(climb));
-  // await setPlanLocation(climb);
-  // await navigate("/plan_trip");
-  // }
+  function goToPlanner(climb) {
+    setPlanLocation(climb);
+    navigate("/plan_trip");
+  }
 
   return (
     <div>
@@ -59,9 +64,16 @@ export default function ClimbPage({
       >
         <Fade in={open}>
           <div className={classes.paper}>
+            <img
+              src={imageURL}
+              alt="climb photos"
+              style={{ height: "140px", width: "auto" }}
+            />
             <h2 id="transition-modal-title">{climb.name}</h2>
             <p id="transition-modal-description">{climb.description}</p>
-            <button>Plan A Trip!</button>
+            <button onClick={() => goToPlanner(planLocation)}>
+              Plan A Trip!
+            </button>
           </div>
         </Fade>
       </Modal>

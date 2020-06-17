@@ -83,7 +83,7 @@ const CreateUserProfile = () => {
         style={styles.root}
         onSubmit={async (e) => {
           e.preventDefault();
-          postNewUser();
+          await postNewUser();
         }}
       >
         <br />

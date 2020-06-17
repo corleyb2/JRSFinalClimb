@@ -21,7 +21,6 @@ const climbSchema = new mongoose.Schema({
   },
   photos: {
     type: [String],
-    //uuid - need to created storage w S3 too
   },
   //Pictures/avatar - how will i store this?
   //Array for trips?

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { navigate } from "@reach/router";
 
 import ClimbPage from "./ClimbPage";
 
@@ -31,8 +30,8 @@ const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
         <CardActionArea className={classes.contentWrapper}>
           <CardMedia
             className={classes.media}
-            // image="../assets
-            title="ClimbPhoto"
+            image="/static/images/cards/contemplative-reptile.jpg"
+            title="Climb Picture"
           />
           <CardContent className={classes.info}>
             <Typography gutterBottom variant="h5" component="h2">
