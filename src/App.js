@@ -17,6 +17,7 @@ import CreateTrip from "./components/CreateTrip";
 import EditUserProfile from "./components/EditUserProfile";
 import UserProfile from "./components/UserProfile";
 import CreateUserProfile from "./components/CreateUserProfile";
+import TripPlannerWrapper from "./components/TripPlannerWrapper";
 
 function App() {
   const [planLocation, setPlanLocation] = useState({});
@@ -39,11 +40,7 @@ function App() {
           />
           <ClimbPage path="/climbs/:climbId" />
           <CreateClimb path="/create_climb" />
-          <CreateTrip
-            path="/plan_trip"
-            planLocation={planLocation}
-            setPlanLocation={setPlanLocation}
-          />
+          <TripPlannerWrapper path="/plan_trip" planLocation={planLocation} />
         </Router>
       </AmplifyAuthenticator>
     </div>

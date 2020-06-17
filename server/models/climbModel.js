@@ -22,8 +22,6 @@ const climbSchema = new mongoose.Schema({
   photos: {
     type: [String],
   },
-  //Pictures/avatar - how will i store this?
-  //Array for trips?
 });
 
 const ClimbModel = mongoose.model("climb", climbSchema);

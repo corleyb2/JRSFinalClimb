@@ -4,9 +4,9 @@ import { Auth } from "aws-amplify";
 
 const CreateTrip = ({ planLocation }) => {
   const [currentUser, setCurrentUser] = useState("");
+
   const [displayWeather, setDisplayWeather] = useState(false);
   const [forecast, setForecast] = useState({});
-  console.log("planLocation from CreateTrip", planLocation);
 
   useEffect(() => {
     async function getUserProfile() {
@@ -15,34 +15,33 @@ const CreateTrip = ({ planLocation }) => {
       setCurrentUser(gotUser);
     }
     getUserProfile();
-    // weatherCall();
   }, []);
 
   let endDateInput, startDateInput;
   let attendees = [];
 
-  async function weatherCall() {
-    try {
-      let tempZip = 29072;
-      //hardcoded for now
-      const response = axios({
-        method: "get",
-        url: `http://api.openweathermap.org/data/2.5/weather?zip=${tempZip},us&appid=26779bfb35d328d4b7b23cde92c1647a`,
-        header: {
-          "Content-Type": "application/json",
-        },
-      }).then((response) => {
-        console.log("response from weatherCall", response.data);
-      });
-    } catch (error) {
-      console.error("error getting weather", error);
-    }
-  }
+  // async function weatherCall() {
+  //   try {
+  //     let tempZip = 29072;
+  //     //hardcoded for now
+  //     const response = axios({
+  //       method: "get",
+  //       url: `http://api.openweathermap.org/data/2.5/weather?zip=${tempZip},us&appid=26779bfb35d328d4b7b23cde92c1647a`,
+  //       header: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }).then((response) => {
+  //       console.log("response from weatherCall", response.data);
+  //     });
+  //   } catch (error) {
+  //     console.error("error getting weather", error);
+  //   }
+  // }
 
   async function submitCreatedTrip() {
     try {
       let tripToCreate = {
-        location: planLocation.name,
+        location: "BunnyRabbit Slopers",
         dateRange: {
           start: startDateInput.value,
           end: endDateInput.value,
@@ -58,7 +57,8 @@ const CreateTrip = ({ planLocation }) => {
           "Content-Type": "application/json",
         },
       }).then((response) => {
-        console.log("response", response);
+        // setTripFocus(response.data);
+        console.log("Trip Created", response);
       });
     } catch (error) {
       console.error("cannot create trip", error);
@@ -84,7 +84,7 @@ const CreateTrip = ({ planLocation }) => {
         />
         <label htmlFor="endDate">End Date</label>
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
-        <button type="submit">Plan</button>
+        <button type="submit">Check for Other Trips</button>
       </form>
 
       {/* ***Holding Off - weather api call causing infinite loop*** */}
