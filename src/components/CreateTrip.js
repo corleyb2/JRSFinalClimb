@@ -47,7 +47,7 @@ const CreateTrip = ({ planLocation }) => {
           start: startDateInput.value,
           end: endDateInput.value,
         },
-        attendees: attendees.push(currentUser),
+        attendees: attendees.concat(currentUser),
       };
       console.log("TripToCreate", tripToCreate);
       const response = await axios({
