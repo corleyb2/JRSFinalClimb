@@ -8,39 +8,44 @@ import EditUserProfile from "./EditUserProfile";
 
 const UserProfile = () => {
   const [currentUser, setCurrentUser] = useState({});
+  const [userAvatar, setUserAvatar] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
 
   useEffect(() => {
-    async function getUserProfile() {
+    getUserProfile();
+  }, []);
+
+  async function getUserProfile() {
+    try {
       const useAuth = await Auth.currentUserInfo();
       const gotUser = await useAuth.username;
-      const avatarResponse = null;
       const response = await axios({
         method: "GET",
         url: `http://localhost:4000/user?username=${gotUser}`,
         header: {
           "Content-Type": "application/json",
         },
-      }).then((response) => {
-        const profileResponse = response.data;
-        setCurrentUser(profileResponse);
-        // navigate("/user");
+      }).then(async (response) => {
+        console.log("response", response);
+        setCurrentUser(response.data);
+        if (response.data.avatar === undefined) {
+          let response = undefined;
+          let avatar = undefined;
+          // setUserAvatar("");
+        } else {
+          console.log(response.data.avatar);
+          const uuid = response.data.avatar;
+          const getS3response = await Storage.get("finale/" + uuid, {
+            contentType: "image/png",
+          });
+          console.log("getS3", getS3response);
+          setUserAvatar(getS3response);
+        }
       });
-      // if (response.data[0][0] == undefined) {
-      //   let response = undefined;
-      //   let avatar = undefined;
-      //   dispatch(getUserProfileSuccess(response, avatar));
-      // } else {
-      //   console.log(response.data[0][0]);
-      //   const uuid = response.data[0][0].avatar;
-      //   const avatar = await Storage.get("profilepics/" + uuid, {
-      //     // level: "protected",
-      //     contentType: "image/png",
-      //   });
-      //   const profileResp = response.data[0][0];
+    } catch (error) {
+      console.error("error getting profile", error);
     }
-    getUserProfile();
-  }, []);
+  }
 
   return toggleEdit ? (
     <>
@@ -57,6 +62,11 @@ const UserProfile = () => {
         <p>{currentUser.username}</p>
         <p>{currentUser.firstname}</p>
         <p>{currentUser.lastname}</p>
+        <img
+          src={userAvatar}
+          alt="climb photos"
+          style={{ height: "140px", width: "auto" }}
+        />
       </div>
       <button onClick={() => setToggleEdit(!toggleEdit)}>Edit Profile</button>
     </>

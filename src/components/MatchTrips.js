@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Auth } from "aws-amplify";
 
+import ExistingTripList from "./ExistingTripList";
+
 const MatchTrips = ({ tripFocus, planLocation }) => {
+  const [listUpcomingTrips, setListUpcomingTrips] = useState([]);
+  console.log("list upcoming trips by hook", listUpcomingTrips);
+
   async function fetchTripsMatchingLocation() {
     try {
       const response = await axios({
@@ -17,8 +22,9 @@ const MatchTrips = ({ tripFocus, planLocation }) => {
       arr.filter((previouslyPlanned) => {
         if (previouslyPlanned.location === planLocation.name) {
           upcomingTrips.push(previouslyPlanned);
-          console.log("upcoming trips array", upcomingTrips);
+          listUpcomingTrips.push(previouslyPlanned);
         }
+        console.log("setListUpcoming", listUpcomingTrips);
       });
     } catch (error) {
       console.log("Error Fetching Matches", error);
@@ -30,8 +36,23 @@ const MatchTrips = ({ tripFocus, planLocation }) => {
       <button onClick={() => fetchTripsMatchingLocation()}>
         Get Upcoming Trips
       </button>
+      <>
+        {listUpcomingTrips.length >= 1 ? (
+          <div styles={style.tripGrid}>
+            <ExistingTripList listUpcomingTrips={listUpcomingTrips} />
+          </div>
+        ) : (
+          <></>
+        )}
+      </>
     </>
   );
 };
 
 export default MatchTrips;
+
+const style = {
+  tripGrid: {
+    width: "80vw",
+  },
+};
