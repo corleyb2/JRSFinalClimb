@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Auth } from "aws-amplify";
 
 import ExistingTripList from "./ExistingTripList";
 
 const MatchTrips = ({ tripFocus, planLocation }) => {
   const [listUpcomingTrips, setListUpcomingTrips] = useState([]);
+  const [renderList, setRenderList] = useState(false);
   console.log("list upcoming trips by hook", listUpcomingTrips);
 
   async function fetchTripsMatchingLocation() {
@@ -33,11 +33,16 @@ const MatchTrips = ({ tripFocus, planLocation }) => {
 
   return (
     <>
-      <button onClick={() => fetchTripsMatchingLocation()}>
+      <button
+        onClick={() => {
+          fetchTripsMatchingLocation();
+          setRenderList(!renderList);
+        }}
+      >
         Get Upcoming Trips
       </button>
       <>
-        {listUpcomingTrips.length >= 1 ? (
+        {renderList ? (
           <div styles={style.tripGrid}>
             <ExistingTripList listUpcomingTrips={listUpcomingTrips} />
           </div>

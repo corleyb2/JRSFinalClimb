@@ -1,42 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Auth } from "aws-amplify";
 
-const CreateTrip = ({ planLocation }) => {
-  const [currentUser, setCurrentUser] = useState("");
-
-  const [displayWeather, setDisplayWeather] = useState(false);
-  const [forecast, setForecast] = useState({});
-
-  useEffect(() => {
-    async function getUserProfile() {
-      const useAuth = await Auth.currentUserInfo();
-      const gotUser = await useAuth.username;
-      setCurrentUser(gotUser);
-    }
-    getUserProfile();
-  }, []);
+const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
+  const [createdTrip, setCreatedTrip] = useState({});
 
   let endDateInput, startDateInput;
   let attendees = [];
-
-  // async function weatherCall() {
-  //   try {
-  //     let tempZip = 29072;
-  //     //hardcoded for now
-  //     const response = axios({
-  //       method: "get",
-  //       url: `http://api.openweathermap.org/data/2.5/weather?zip=${tempZip},us&appid=26779bfb35d328d4b7b23cde92c1647a`,
-  //       header: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }).then((response) => {
-  //       console.log("response from weatherCall", response.data);
-  //     });
-  //   } catch (error) {
-  //     console.error("error getting weather", error);
-  //   }
-  // }
 
   async function submitCreatedTrip() {
     try {
@@ -46,7 +15,7 @@ const CreateTrip = ({ planLocation }) => {
           start: startDateInput.value,
           end: endDateInput.value,
         },
-        attendees: attendees.concat(currentUser),
+        attendees: attendees.concat(currentUsername),
       };
       console.log("TripToCreate", tripToCreate);
       const response = await axios({
@@ -56,21 +25,38 @@ const CreateTrip = ({ planLocation }) => {
         header: {
           "Content-Type": "application/json",
         },
-      }).then((response) => {
-        // setTripFocus(response.data);
-        console.log("Trip Created", response);
-      });
+      }).then((result) => setCreatedTrip(result.data));
     } catch (error) {
       console.error("cannot create trip", error);
     }
   }
+
+  // async function addToUserTrips() {
+  //   try {
+  //     let tripToUser = createdTrip._id;
+  //     let myTrips = [];
+  //     console.log("tripToUser", tripToUser);
+  //     const response = await axios({
+  //       method: "PUT",
+  //       url: `http://localhost:4000/user?username=${currentUsername}`,
+  //       data: {
+  //         myTrips: myTrips.concat(tripToUser._id),
+  //       },
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }).then((response) => console.log("trip added ToUser", response.data));
+  //   } catch (error) {
+  //     console.log("Can't add to user Trips");
+  //   }
+  // }
 
   return (
     <>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          submitCreatedTrip();
+          await submitCreatedTrip();
         }}
       >
         <h2>Trip Planning</h2>
@@ -86,12 +72,6 @@ const CreateTrip = ({ planLocation }) => {
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
         <button type="submit">Submit Trip</button>
       </form>
-
-      {/* ***Holding Off - weather api call causing infinite loop*** */}
-      {/* {displayWeather ? <p>Display It</p> : <p>Nothing to Show</p>} */}
-      {/* <button onClick={(() => weatherCall(), setDisplayWeather(true))}>
-        Check Weather
-      </button> */}
     </>
   );
 };

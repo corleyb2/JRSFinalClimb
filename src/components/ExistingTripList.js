@@ -26,8 +26,9 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function ExistingTripList() {
+export default function ExistingTripList({ listUpcomingTrips }) {
   const classes = useStyles();
+  console.log("listUpcoming on ExistingTripList component", listUpcomingTrips);
 
   return (
     <TableContainer component={Paper}>

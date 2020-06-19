@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
-const MyUpcomingTrips = ({ currentUser }) => {
-  //axios query to Trips
+const MyUpcomingTrips = () => {
+  //axios query to Trips - response.data.map((trip) => )
+
   //map through attendees of each
   //find those where attendees array includes current user
 
@@ -14,9 +15,18 @@ const MyUpcomingTrips = ({ currentUser }) => {
         header: {
           "Content-Type": "application/json",
         },
-      }).then((response) => {
-        console.log("response.data on upcomingtrips", response.data);
-      });
+      }).then(
+        (result) => {
+          console.log(result.data);
+        }
+        // let attendeesArray = tripsArray.map((trip) => trip.attendees);
+        // console.log("attendees array", attendeesArray);
+        // let myTrips = attendeesArray.map((myTrip) => {
+        //   myTrip.map((myName) => {
+        //       if (myName === currentUser.name)
+        //   })
+        // });
+      );
     }
     matchTrips();
   }, []);

@@ -26,12 +26,15 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   // myTrips: {
-  //   object with date start, date end, location, and accompanying climbers
-  // },
-  // friendList: {
-  //   Array to ref back to user table of other userId
+  //   type: [mongoose.Schema.Types.ObjectId],
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "trip",
   // },
 });
+
+// friendList: {
+//   Array to ref back to user table of other userId
+// },
 
 const UserModel = mongoose.model("user", userSchema);
 

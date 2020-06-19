@@ -29,7 +29,6 @@ const UserProfile = () => {
         if (response.data.avatar === undefined) {
           let response = undefined;
           let avatar = undefined;
-          // setUserAvatar("");
         } else {
           const uuid = response.data.avatar;
           const getS3response = await Storage.get("finale/" + uuid, {
@@ -81,8 +80,8 @@ const UserProfile = () => {
             <p>{currentUser.firstname}</p>
             <p>{currentUser.lastname}</p>
             <p>
-              V{currentUser.skillLevel && currentUser.skillLevel.high} to V
-              {currentUser.skillLevel && currentUser.skillLevel.low}
+              V{currentUser.skillLevel && currentUser.skillLevel.low} to V
+              {currentUser.skillLevel && currentUser.skillLevel.high}
             </p>
           </div>
         </div>

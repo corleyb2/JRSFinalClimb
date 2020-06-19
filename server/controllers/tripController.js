@@ -1,4 +1,5 @@
 const { TripModel } = require("../models/tripModel");
+const { UserModel } = require("../models/userModel");
 
 //POST
 const createTrip = async (request, response) => {
@@ -7,6 +8,10 @@ const createTrip = async (request, response) => {
     let tripInstance = new TripModel(request.body);
     console.log(tripInstance);
     const createdTrip = await TripModel.create(tripInstance);
+    // let updateUser = await UserModel.findOneAndUpdate(
+    //   request.query,
+    //   request.body
+    // );
     response.send(createdTrip);
   } catch (error) {
     response.status(500).send(error);
