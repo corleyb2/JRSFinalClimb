@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { navigate } from "@reach/router";
 import axios from "axios";
 
+import { makeStyles } from "@material-ui/core/styles";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+
 const EditUserProfile = ({ setToggleEdit, toggleEdit, currentUser }) => {
   let firstnameInput, lastnameInput, skillHighInput, skillLowInput;
 
@@ -55,49 +60,56 @@ const EditUserProfile = ({ setToggleEdit, toggleEdit, currentUser }) => {
           await setToggleEdit(!toggleEdit);
         }}
       >
-        <label htmlFor="firstname">First Name:</label>
-        <input
-          id="firstname"
-          type="text"
-          defaultValue={currentUser.firstname}
-          ref={(node) => (firstnameInput = node)}
-          style={styles.inputs}
-        />
-        <label htmlFor="lastname">Last Name:</label>
-        <input
-          id="lastname"
-          type="text"
-          defaultValue={currentUser.lastname}
-          ref={(node) => (lastnameInput = node)}
-          style={styles.inputs}
-        />
-        <label htmlFor="skillHigh">Skill Level - Top:</label>
-        <input
-          id="skillHigh"
-          type="number"
-          min="0"
-          max="12"
-          defaultValue={currentUser.skillLevel.high}
-          ref={(node) => (skillHighInput = node)}
-        />
-        <label htmlFor="skillLow">Skill Level - Low End</label>
-        <input
-          id="skillLow"
-          type="number"
-          min="0"
-          max="12"
-          defaultValue={currentUser.skillLevel.low}
-          ref={(node) => (skillLowInput = node)}
-        />
+        <div style={styles.lineStyle}>
+          <label>Username:</label>
+          <h4>{currentUser.username}</h4>
+          <Tooltip title="username" placement="right">
+            <IconButton aria-label="You may not change your username">
+              <HelpOutlineIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <div style={styles.lineStyle}>
+          <label htmlFor="firstname">First Name:</label>
+          <input
+            id="firstname"
+            type="text"
+            defaultValue={currentUser.firstname}
+            ref={(node) => (firstnameInput = node)}
+            style={styles.inputs}
+          />
+        </div>
+        <div style={styles.lineStyle}>
+          <label htmlFor="lastname">Last Name:</label>
+          <input
+            id="lastname"
+            type="text"
+            defaultValue={currentUser.lastname}
+            ref={(node) => (lastnameInput = node)}
+            style={styles.inputs}
+          />
+        </div>
+        <div style={styles.lineStyle}>
+          <label htmlFor="skillHigh">Skill Level - Top:</label>
+          <input
+            id="skillHigh"
+            type="number"
+            min="0"
+            max="12"
+            defaultValue={currentUser.skillLevel.high}
+            ref={(node) => (skillHighInput = node)}
+          />
+          <label htmlFor="skillLow">Skill Level - Low End:</label>
+          <input
+            id="skillLow"
+            type="number"
+            min="0"
+            max="12"
+            defaultValue={currentUser.skillLevel.low}
+            ref={(node) => (skillLowInput = node)}
+          />
+        </div>
 
-        {/* <label htmlFor="bio">Tell Us About Yourself:</label>
-        <textarea
-          id="bio"
-          type="text"
-          defaultValue={currentUser.}
-          ref={(node) => (bioInput = node)}
-          style={styles.textarea}
-        ></textarea> */}
         {/* <input
           type="file"
           accept="image/*"
@@ -143,6 +155,15 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
   },
+  lineStyle: {
+    display: "flex",
+    flexDirection: "row",
+    border: "2px solid black",
+    alignItems: "center",
+    width: "300px",
+    height: "40px",
+    padding: "25px",
+  },
   avatar: {
     width: "100px",
     height: "100px",
@@ -153,12 +174,10 @@ const styles = {
     backgroundRepeat: "no-repeat",
   },
   inputs: {
-    width: 250,
-    marginBottom: 10,
-    marginTop: 4,
+    width: 100,
+    margin: 20,
     borderRadius: 8,
     border: "1px solid black",
-    boxShadow: "inset 0px 0px 1.5px 1.5px gray",
     padding: 10,
     fontFamily: "sans-serif",
   },
@@ -170,7 +189,6 @@ const styles = {
     marginBottom: 10,
     marginTop: 4,
     border: "1px solid black",
-    boxShadow: "inset 0px 0px 1.5px 1.5px gray",
     padding: 10,
     fontFamily: "sans-serif",
   },

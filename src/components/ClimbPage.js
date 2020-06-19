@@ -72,6 +72,9 @@ export default function ClimbPage({
               style={{ height: "140px", width: "auto" }}
             />
             <h2 id="transition-modal-title">{climb.name}</h2>
+            <h4 id="transition-modal-title">
+              {climb.location.town}, {climb.location.state} {climb.location.zip}
+            </h4>
             <p id="transition-modal-description">{climb.description}</p>
             <button onClick={() => goToPlanner(climb)}>Plan A Trip!</button>
           </div>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Storage } from "aws-amplify";
 
 import ClimbPage from "./ClimbPage";
 
@@ -13,7 +14,24 @@ import Typography from "@material-ui/core/Typography";
 
 const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
   const [renderPopover, setRenderPopover] = useState(false);
+  const [imageURL, setImageURL] = useState("");
+
   const [open, setOpen] = React.useState(false);
+
+  console.log("climb", climb);
+  console.log("imageURL", imageURL);
+
+  useEffect(() => {
+    async function pullS3Image() {
+      let uuidName = climb.photos[0];
+      if (uuidName !== undefined) {
+        let result = await Storage.get("finale/" + uuidName, {
+          contentType: "image/png",
+        }).then((result) => setImageURL(result));
+      }
+    }
+    pullS3Image();
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -28,11 +46,8 @@ const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
     <>
       <Card className={classes.root}>
         <CardActionArea className={classes.contentWrapper}>
-          <CardMedia
-            className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
-            title="Climb Picture"
-          />
+          <CardMedia className={classes.media} image src={imageURL} />
+
           <CardContent className={classes.info}>
             <Typography gutterBottom variant="h5" component="h2">
               {climb.name}
