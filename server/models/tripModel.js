@@ -19,10 +19,10 @@ const tripSchema = new mongoose.Schema({
     },
   },
   attendees: {
-    type: [String],
-    // type: [mongoose.Schema.Types.ObjectId],
-    // required: true,
-    // ref: "user",
+    // type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    required: true,
+    ref: "user",
   },
 });
 

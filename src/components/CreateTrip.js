@@ -4,6 +4,8 @@ import axios from "axios";
 const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
   const [createdTrip, setCreatedTrip] = useState({});
 
+  console.log("FullUserInfo at createtrip", fullUserInfo);
+
   let endDateInput, startDateInput;
   let attendees = [];
 
@@ -15,7 +17,7 @@ const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
           start: startDateInput.value,
           end: endDateInput.value,
         },
-        attendees: attendees.concat(currentUsername),
+        attendees: attendees.concat(fullUserInfo._id),
       };
       console.log("TripToCreate", tripToCreate);
       const response = await axios({
