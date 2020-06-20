@@ -25,11 +25,6 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
-  // myTrips: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "trip",
-  // },
 });
 
 // friendList: {

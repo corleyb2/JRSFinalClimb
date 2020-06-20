@@ -26,13 +26,10 @@ const Home = () => {
       <br />
       <br />
       <h2>Welcome to Home Page, {username}</h2>
-      <h2>this needs a top margin at App level</h2>
       <h2>Welcome to Home Page</h2>
     </div>
   ) : (
-    <div>
-      <p> Loading </p>
-    </div>
+    <div>Loading...</div>
   );
 };
 

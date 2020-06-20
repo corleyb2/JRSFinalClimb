@@ -19,13 +19,14 @@ const MyUpcomingTrips = () => {
         (result) => {
           console.log(result.data);
         }
-        // let attendeesArray = tripsArray.map((trip) => trip.attendees);
-        // console.log("attendees array", attendeesArray);
-        // let myTrips = attendeesArray.map((myTrip) => {
-        //   myTrip.map((myName) => {
-        //       if (myName === currentUser.name)
-        //   })
-        // });
+        //   let attendeesArray = tripsArray.map((trip) => trip.attendees);
+        //   console.log("attendees array", attendeesArray);
+        //   let myTrips = attendeesArray.map((myTrip) => {
+        //     myTrip.map((myName) => {
+        //         if (myName === currentUser.name)
+        //     })
+        //   });
+        // );
       );
     }
     matchTrips();

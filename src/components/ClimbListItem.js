@@ -46,8 +46,9 @@ const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
     <>
       <Card className={classes.root}>
         <CardActionArea className={classes.contentWrapper}>
-          <CardMedia className={classes.media} image src={imageURL} />
-
+          <CardMedia className={classes.media}>
+            <img src={imageURL} className={classes.media} />
+          </CardMedia>
           <CardContent className={classes.info}>
             <Typography gutterBottom variant="h5" component="h2">
               {climb.name}
@@ -114,7 +115,8 @@ const useStyles = makeStyles({
     width: 140,
     display: "flex",
     flexDirection: "row",
-    border: "3px dotted red",
+    border: "0.5px solid black",
+    boxShadow: "2px 3px 5px gray",
   },
   info: {
     width: "35vw",
