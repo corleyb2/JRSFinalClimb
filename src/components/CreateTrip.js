@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
+const CreateTrip = ({ planLocation, fullUserInfo }) => {
   const [createdTrip, setCreatedTrip] = useState({});
 
-  console.log("FullUserInfo at createtrip", fullUserInfo);
+  console.log("FullUserInfo at createtrip", fullUserInfo._id);
+  console.log("createdTrip", createdTrip._id);
 
   let endDateInput, startDateInput;
   let attendees = [];
+  let scheduledUsers = [];
 
   async function submitCreatedTrip() {
     try {
-      let tripToCreate = {
+      let tripCreationPayload = {
         location: planLocation.name,
         dateRange: {
           start: startDateInput.value,
@@ -19,11 +21,10 @@ const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
         },
         attendees: attendees.concat(fullUserInfo._id),
       };
-      console.log("TripToCreate", tripToCreate);
-      const response = await axios({
+      await axios({
         method: "POST",
         url: "http://localhost:4000/trip",
-        data: tripToCreate,
+        data: tripCreationPayload,
         header: {
           "Content-Type": "application/json",
         },
@@ -33,25 +34,40 @@ const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
     }
   }
 
-  // async function addToUserTrips() {
-  //   try {
-  //     let tripToUser = createdTrip._id;
-  //     let myTrips = [];
-  //     console.log("tripToUser", tripToUser);
-  //     const response = await axios({
-  //       method: "PUT",
-  //       url: `http://localhost:4000/user?username=${currentUsername}`,
-  //       data: {
-  //         myTrips: myTrips.concat(tripToUser._id),
-  //       },
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }).then((response) => console.log("trip added ToUser", response.data));
-  //   } catch (error) {
-  //     console.log("Can't add to user Trips");
-  //   }
-  // }
+  // let tripCreationPayload = {
+  //   trip: {
+  //     location: planLocation.name,
+  //     dateRange: {
+  //       start: startDateInput.value,
+  //       end: endDateInput.value,
+  //     },
+  //     attendees: attendees.concat(fullUserInfo._id),
+  //   },
+  //   userData: {
+  //     scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
+  //   },
+  // };
+
+  async function createRelationalEntry() {
+    try {
+      let relationalPayload = {
+        scheduledTrip: "Hardcoded Trip ID",
+        scheduledUsers: scheduledUsers.concat("HardCoded UserID"),
+        // scheduledTrip: createdTrip._id,
+        // scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
+      };
+      await axios({
+        method: "POST",
+        url: "http://localhost:4000/relational",
+        data: relationalPayload,
+        header: {
+          "Content-Type": "application/json",
+        },
+      }).then((result) => console.log("result data", result.data));
+    } catch (error) {
+      console.error("cannot create trip", error);
+    }
+  }
 
   return (
     <>
@@ -74,6 +90,10 @@ const CreateTrip = ({ planLocation, currentUsername, fullUserInfo }) => {
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
         <button type="submit">Submit Trip</button>
       </form>
+      <br />
+      <button onClick={() => createRelationalEntry()}>
+        SEND TO RELATIONAL
+      </button>
     </>
   );
 };

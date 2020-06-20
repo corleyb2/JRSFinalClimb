@@ -11,6 +11,7 @@ const { userRoutes } = require("./routes/userRoutes");
 const { climbRoutes } = require("./routes/climbRoutes");
 const { tripRoutes } = require("./routes/tripRoutes");
 const { messageRoutes } = require("./routes/messageRoutes");
+const { relationalRoutes } = require("./routes/relationalRoutes");
 
 const app = express();
 const PORT = 4000;
@@ -33,6 +34,7 @@ userRoutes(app);
 climbRoutes(app);
 tripRoutes(app);
 messageRoutes(app);
+relationalRoutes(app);
 
 //called in listener for server status
 const start = () => {

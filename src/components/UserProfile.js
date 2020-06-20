@@ -9,32 +9,31 @@ const UserProfile = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [userAvatar, setUserAvatar] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
+  const [isLoading, toggleLoading] = useState(true);
 
   useEffect(() => {
-    getUserProfile();
+    getUserProfile && getUserProfile();
   }, []);
 
   async function getUserProfile() {
     try {
       const useAuth = await Auth.currentUserInfo();
       const gotUser = await useAuth.username;
-      const response = await axios({
+      await axios({
         method: "GET",
         url: `http://localhost:4000/user?username=${gotUser}`,
         header: {
           "Content-Type": "application/json",
         },
       }).then(async (response) => {
-        await setCurrentUser(response.data);
-        if (response.data.avatar === undefined) {
-          let response = undefined;
-          let avatar = undefined;
-        } else {
+        setCurrentUser(response.data);
+        if (response.data.avatar !== undefined) {
           const uuid = response.data.avatar;
           const getS3response = await Storage.get("finale/" + uuid, {
             contentType: "image/png",
           });
-          await setUserAvatar(getS3response);
+          setUserAvatar(getS3response);
+          toggleLoading(false);
         }
       });
     } catch (error) {
@@ -50,6 +49,8 @@ const UserProfile = () => {
         currentUser={currentUser}
       />
     </>
+  ) : isLoading ? (
+    <div>Loading....</div>
   ) : (
     <>
       <h2>View User Profile</h2>
