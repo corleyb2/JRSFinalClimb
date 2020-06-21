@@ -51,10 +51,10 @@ const CreateTrip = ({ planLocation, fullUserInfo }) => {
   async function createRelationalEntry() {
     try {
       let relationalPayload = {
-        scheduledTrip: "Hardcoded Trip ID",
-        scheduledUsers: scheduledUsers.concat("HardCoded UserID"),
-        // scheduledTrip: createdTrip._id,
-        // scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
+        // scheduledTrip: "Hardcoded Trip ID",
+        // scheduledUsers: scheduledUsers.concat("HardCoded UserID"),
+        scheduledTrip: createdTrip._id,
+        scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
       };
       await axios({
         method: "POST",
