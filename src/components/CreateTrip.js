@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const CreateTrip = ({ planLocation, fullUserInfo }) => {
@@ -14,12 +14,17 @@ const CreateTrip = ({ planLocation, fullUserInfo }) => {
   async function submitCreatedTrip() {
     try {
       let tripCreationPayload = {
-        location: planLocation.name,
-        dateRange: {
-          start: startDateInput.value,
-          end: endDateInput.value,
+        trip: {
+          location: planLocation.name,
+          dateRange: {
+            start: startDateInput.value,
+            end: endDateInput.value,
+          },
+          attendees: attendees.concat(fullUserInfo._id),
         },
-        attendees: attendees.concat(fullUserInfo._id),
+        userData: {
+          scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
+        },
       };
       await axios({
         method: "POST",
@@ -29,41 +34,6 @@ const CreateTrip = ({ planLocation, fullUserInfo }) => {
           "Content-Type": "application/json",
         },
       }).then((result) => setCreatedTrip(result.data));
-    } catch (error) {
-      console.error("cannot create trip", error);
-    }
-  }
-
-  // let tripCreationPayload = {
-  //   trip: {
-  //     location: planLocation.name,
-  //     dateRange: {
-  //       start: startDateInput.value,
-  //       end: endDateInput.value,
-  //     },
-  //     attendees: attendees.concat(fullUserInfo._id),
-  //   },
-  //   userData: {
-  //     scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
-  //   },
-  // };
-
-  async function createRelationalEntry() {
-    try {
-      let relationalPayload = {
-        // scheduledTrip: "Hardcoded Trip ID",
-        // scheduledUsers: scheduledUsers.concat("HardCoded UserID"),
-        scheduledTrip: createdTrip._id,
-        scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
-      };
-      await axios({
-        method: "POST",
-        url: "http://localhost:4000/relational",
-        data: relationalPayload,
-        header: {
-          "Content-Type": "application/json",
-        },
-      }).then((result) => console.log("result data", result.data));
     } catch (error) {
       console.error("cannot create trip", error);
     }
@@ -90,10 +60,6 @@ const CreateTrip = ({ planLocation, fullUserInfo }) => {
         <input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
         <button type="submit">Submit Trip</button>
       </form>
-      <br />
-      <button onClick={() => createRelationalEntry()}>
-        SEND TO RELATIONAL
-      </button>
     </>
   );
 };

@@ -1,36 +1,28 @@
 const { TripModel } = require("../models/tripModel");
-const { RelationalModel } = require("../models/userModel");
+const { RelationalModel } = require("../models/relationalModel");
 
 //POST
-// const createTrip = async (request, response) => {
-//   try {
-//     const userInfo = request.body.userData;
-//     const tripInfo = request.body.trip;
-//     console.log("POST TRIP");
-//     let tripInstance = new TripModel(request.body);
-//     const createdTrip = await TripModel.create(tripInstance);
-//     console.log("*createdTrip*", createdTrip);
-//     let relationalInstance = new RelationalModel({
-//       scheduledUsers: userInfo,
-//       scheduledClimb: createdTrip._id,
-//     });
-//     let createRelationalEntry = await RelationalModel.create(
-//       relationalInstance
-//     );
-//     console.log("#createRelationalEntry#", createRelationalEntry);
-//     response.send(createdTrip);
-//     createRelationalEntry);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-
 const createTrip = async (request, response) => {
   try {
-    console.log("POST TRIP");
-    let tripInstance = new TripModel(request.body);
-    console.log(tripInstance);
+    console.log("hello");
+    console.log("request.body", request.body);
+    const { userData, trip } = request.body;
+    const tripInstance = new TripModel(trip);
     const createdTrip = await TripModel.create(tripInstance);
-    response.send(createdTrip);
+    const relationalInstance = new RelationalModel({
+      scheduledUsers: userData.scheduledUsers,
+      scheduledTrip: createdTrip._id,
+    });
+    console.log("*** relationInstance", relationalInstance);
+    const createRelationalEntry = await RelationalModel.create(
+      relationalInstance
+    );
+    console.log("**!createRelationalEntry!", createRelationalEntry);
+    const res = {
+      createdTrip,
+      createRelationalEntry,
+    };
+    response.status(200).send(res);
   } catch (error) {
     response.status(500).send(error);
   }
