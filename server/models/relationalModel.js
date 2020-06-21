@@ -5,7 +5,7 @@ const relationalSchema = new mongoose.Schema({
     // type: String,
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "climb",
+    ref: "trip",
   },
   scheduledUsers: {
     // type: [String],
