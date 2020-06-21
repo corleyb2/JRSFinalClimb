@@ -16,11 +16,11 @@ const CreateTrip = ({ planLocation, fullUserInfo }) => {
       let tripCreationPayload = {
         trip: {
           location: planLocation.name,
+          //if wanting to ref, planLocation._id & .populate on server
           dateRange: {
             start: startDateInput.value,
             end: endDateInput.value,
           },
-          attendees: attendees.concat(fullUserInfo._id),
         },
         userData: {
           scheduledUsers: scheduledUsers.concat(fullUserInfo._id),

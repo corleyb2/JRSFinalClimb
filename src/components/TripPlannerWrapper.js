@@ -34,9 +34,6 @@ const TripPlannerWrapper = ({ planLocation, setPlanLocation }) => {
     }
   }
 
-  console.log(currentUsername);
-  console.log(fullUserInfo);
-
   return (
     <>
       <br />

@@ -1,41 +1,44 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
-const MyUpcomingTrips = () => {
-  //axios query to Trips - response.data.map((trip) => )
-
-  //map through attendees of each
-  //find those where attendees array includes current user
+const MyUpcomingTrips = ({ currentUser }) => {
+  let userTripArr = [];
+  console.log("userTripArr", userTripArr);
 
   useEffect(() => {
-    async function matchTrips() {
+    async function userTrips() {
       await axios({
         method: "get",
-        url: `http://localhost:4000/trips`,
+        url: `http://localhost:4000/relationals`,
         header: {
           "Content-Type": "application/json",
         },
-      }).then(
-        (result) => {
-          console.log(result.data);
-        }
-        //   let attendeesArray = tripsArray.map((trip) => trip.attendees);
-        //   console.log("attendees array", attendeesArray);
-        //   let myTrips = attendeesArray.map((myTrip) => {
-        //     myTrip.map((myName) => {
-        //         if (myName === currentUser.name)
-        //     })
-        //   });
-        // );
-      );
+      }).then((result) => {
+        userTripArr = result.data.filter((trip) => {
+          trip.scheduledUsers.map((user) => {
+            if (user === currentUser._id) {
+              // console.log("this trip includes current user", trip);
+              userTripArr.push(trip);
+            }
+          });
+        });
+      });
     }
-    matchTrips();
+    userTrips();
   }, []);
 
   return (
     <div>
-      <p>Trip 1</p>
-      <p>Trip 2</p>
+      <p>{currentUser.firstname}</p>
+      {userTripArr &&
+        userTripArr.map((trip) => (
+          <div key={trip._id}>
+            <h3>{trip.location}</h3>
+            <p>
+              {trip.dateRange.start} to {trip.dateRange.end}
+            </p>
+          </div>
+        ))}
     </div>
   );
 };

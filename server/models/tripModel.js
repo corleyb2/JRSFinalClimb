@@ -18,12 +18,11 @@ const tripSchema = new mongoose.Schema({
       required: true,
     },
   },
-  attendees: {
-    // type: [String],
-    type: [mongoose.Schema.Types.ObjectId],
-    required: true,
-    ref: "user",
-  },
+  // attendees: {
+  //   type: [mongoose.Schema.Types.ObjectId],
+  //   required: true,
+  //   ref: "user",
+  // },
 });
 
 const TripModel = mongoose.model("trip", tripSchema);

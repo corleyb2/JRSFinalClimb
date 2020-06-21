@@ -1,17 +1,6 @@
 const { RelationalModel } = require("../models/relationalModel");
 
-// Relational Creation
-const createRelational = async (request, response) => {
-  try {
-    console.log("POST RELATIONAL ENTRY");
-    let relationalInstance = new RelationalModel(request.body);
-    console.log(relationalInstance);
-    const createdRelational = await RelationalModel.create(relationalInstance);
-    response.send(createdRelational);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-};
+// Relational Creation handled in tripController POST
 
 // Delete Relational (query string)
 const deleteRelational = async (request, response) => {
@@ -47,8 +36,17 @@ const editRelational = async (request, response) => {
 const getAllRelationals = async (request, response) => {
   try {
     console.log("GET ALL CLIMBSPOTS");
-    let relationalInstances = await RelationalModel.find({});
-    response.status(200).send(relationalInstances);
+    let relationalInstances = await RelationalModel.find({})
+      // .populate("scheduledUsers")
+      // .exec((err, scheduledUsers) => {
+      //   console.log("Populated User " + scheduledUsers);
+      // })
+      .populate("scheduledTrip")
+      .exec((err, scheduledTrips) => {
+        response.status(200).send(scheduledTrips);
+      });
+    // console.log("relationalInstances!!!", relationalInstances);
+    // response.status(200).send("last line", relationalInstances);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -68,7 +66,6 @@ const findSingleRelational = async (request, response) => {
 module.exports = {
   findSingleRelational,
   getAllRelationals,
-  createRelational,
   editRelational,
   deleteRelational,
 };

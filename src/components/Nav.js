@@ -166,6 +166,7 @@ export default function Nav() {
               className={classes.list}
               onClick={() => {
                 navigate("/");
+                handleDrawerClose();
               }}
             >
               Home
@@ -174,6 +175,7 @@ export default function Nav() {
               className={classes.list}
               onClick={() => {
                 navigate("/user");
+                handleDrawerClose();
               }}
             >
               My Profile
@@ -183,6 +185,7 @@ export default function Nav() {
               className={classes.list}
               onClick={() => {
                 navigate("create_user");
+                handleDrawerClose();
               }}
             >
               Create A Profile
@@ -191,6 +194,7 @@ export default function Nav() {
               className={classes.list}
               onClick={() => {
                 navigate("/climbs");
+                handleDrawerClose();
               }}
             >
               Search Climbs
@@ -199,6 +203,7 @@ export default function Nav() {
               className={classes.list}
               onClick={() => {
                 navigate("/create_climb");
+                handleDrawerClose();
               }}
             >
               Add New Climb
