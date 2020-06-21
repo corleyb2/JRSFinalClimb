@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { Router } from "@reach/router";
-import {
-  withAuthenticator,
-  AmplifyAuthenticator,
-  AmplifySignIn,
-  AmplifySignUp,
-} from "@aws-amplify/ui-react";
+import { withAuthenticator, AmplifyAuthenticator } from "@aws-amplify/ui-react";
 
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -26,8 +21,6 @@ function App() {
     <div className="App">
       <Nav />
       <AmplifyAuthenticator>
-        <AmplifySignIn slot="sign-in" />
-        <AmplifySignUp slot="sign-up" />
         <Router>
           <Home path="/" />
           <UserProfile path="/user" />
