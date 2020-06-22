@@ -85,22 +85,22 @@ const useStyles = makeStyles((theme) => ({
   list: {
     height: "46px",
   },
-  avatarContainer: {
-    width: "185px",
-    height: "185px",
-    borderRadius: "50%",
-    border: "2px solid black",
-    margin: "auto",
-  },
-  avatar: {
-    width: "185px",
-    height: "185px",
-    borderRadius: "50%",
-    margin: "auto",
-    background: "white",
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-  },
+  // avatarContainer: {
+  //   width: "185px",
+  //   height: "185px",
+  //   borderRadius: "50%",
+  //   border: "2px solid black",
+  //   margin: "auto",
+  // },
+  // avatar: {
+  //   width: "185px",
+  //   height: "185px",
+  //   borderRadius: "50%",
+  //   margin: "auto",
+  //   background: "white",
+  //   backgroundSize: "contain",
+  //   backgroundRepeat: "no-repeat",
+  // },
   signOut: {
     maxWidth: "100%",
     justifyContent: "center",
@@ -227,13 +227,12 @@ export default function Nav() {
           <Divider />
           <h3>You are Signed In As:</h3>
           <h3>{username}</h3>
-          <h3></h3>
-          <div className={classes.avatarContainer}>
-            {/* <img
+          {/* <div className={classes.avatarContainer}>
+            <img
     src={require("../assets/JRSLogo.jpg")}
     className={classes.avatar}
-  /> */}
-          </div>
+  />
+          </div> */}
           <MenuList
             style={{
               display: "flex",

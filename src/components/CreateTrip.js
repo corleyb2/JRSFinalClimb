@@ -73,7 +73,7 @@ const CreateTrip = ({ planLocation, fullUserInfo, setTripFocus }) => {
         <button
           style={{ border: "none", backgroundColor: "none" }}
           id="backToList"
-          onClick={() => navigate("climb_list")}
+          onClick={() => navigate("climbs")}
         >
           Back to List
         </button>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { navigate } from "@reach/router";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -45,10 +46,13 @@ const EditTrip = ({
   handleClose,
   selectedTrip,
   setRenderUpdatedTrips,
+  editedStart,
+  editedEnd,
+  setEditedEnd,
+  setEditedStart,
+  reRenderTrips,
 }) => {
   const classes = useStyles();
-  const [editedStart, setEditedStart] = useState("");
-  const [editedEnd, setEditedEnd] = useState("");
 
   console.log("selectedTrip passed to EditTrip", selectedTrip);
 
@@ -131,6 +135,7 @@ const EditTrip = ({
                 e.preventDefault();
                 await editATrip();
                 await handleClose();
+                reRenderTrips();
               }}
             >
               Update Trip

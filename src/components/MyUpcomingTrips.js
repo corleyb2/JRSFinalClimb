@@ -8,7 +8,33 @@ const MyUpcomingTrips = ({ currentUser, setRenderUpdatedTrips }) => {
   const [userTrips, setUserTrips] = useState([]);
   const [renderEdit, setRenderEdit] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState("");
+  const [editedStart, setEditedStart] = useState("");
+  const [editedEnd, setEditedEnd] = useState("");
+
   const [open, setOpen] = React.useState(false);
+
+  //reRender upon editing - what a monster!
+  function reRenderTrips() {
+    console.log("SELECTED!!!!!!!", selectedTrip);
+    let updatedTrip = userTrips.find(
+      (trip) => trip.scheduledTrip._id === selectedTrip.scheduledTrip._id
+    );
+    console.log("UDPATED******", updatedTrip);
+
+    updatedTrip.scheduledTrip.dateRange.start = editedStart;
+    updatedTrip.scheduledTrip.dateRange.end = editedEnd;
+    let localUserTrips = [...userTrips];
+    localUserTrips[findTripLoop(updatedTrip.scheduledTrip._id)] = updatedTrip;
+    setUserTrips(localUserTrips);
+  }
+
+  function findTripLoop(id) {
+    for (let i = 0; i < userTrips.length; i++) {
+      if (userTrips[i].scheduledTrip._id === id) {
+        return i;
+      }
+    }
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -68,6 +94,11 @@ const MyUpcomingTrips = ({ currentUser, setRenderUpdatedTrips }) => {
           open={open}
           selectedTrip={selectedTrip}
           setRenderUpdatedTrips={setRenderUpdatedTrips}
+          reRenderTrips={reRenderTrips}
+          editedStart={editedStart}
+          editedEnd={editedEnd}
+          setEditedEnd={setEditedEnd}
+          setEditedStart={setEditedStart}
         />
       ) : (
         <></>

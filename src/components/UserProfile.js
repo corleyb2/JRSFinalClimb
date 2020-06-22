@@ -18,9 +18,9 @@ const UserProfile = () => {
     getUserProfile && getUserProfile();
   }, []);
 
-  useEffect(() => {
-    getUserProfile && getUserProfile();
-  }, [renderUpdatedTrips]);
+  // useEffect(() => {
+  //   getUserProfile && getUserProfile();
+  // }, [renderUpdatedTrips]);
 
   async function getUserProfile() {
     try {
