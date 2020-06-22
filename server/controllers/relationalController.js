@@ -43,7 +43,7 @@ const getAllRelationals = async (request, response) => {
     response.status(500).send(error);
   }
 };
-
+//Relationals - given user_id in querystring
 const getRelationalsGivenUser = async (request, response) => {
   try {
     console.log("GET RELS BY GIVEN USER");
@@ -58,12 +58,15 @@ const getRelationalsGivenUser = async (request, response) => {
   }
 };
 
-// Relationals - Find One by query
-// const findSingleRelational = async (request, response) => {
+// const getRelationalsGivenClimb = async (request, response) => {
 //   try {
-//     console.log("GET ONE CLIMBSPOT");
-//     let relational = await RelationalModel.findOne(request.query);
-//     response.status(200).send(relational);
+//     console.log("GET RELS BY GIVEN TRIP");
+//     console.log("Req.query.scheduled trip", request.query.scheduledTrip);
+//     const relationalByTrip = await RelationalModel.find({
+//       scheduledTrip: request.query.scheduledTrip,
+//     }).populate("scheduledUser");
+//     console.log("relational arr", relationalByUser);
+//     response.status(200).send(relationalByUser);
 //   } catch (error) {
 //     response.status(500).send(error);
 //   }

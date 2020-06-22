@@ -61,8 +61,8 @@ const UserProfile = () => {
             src={userAvatar}
             alt="avatar"
             style={{
-              height: "200px",
-              width: "200px",
+              height: "250px",
+              width: "250px",
               borderRadius: "50%",
               border: "3px solid black",
               boxShadow: "3px 3px 7px gray",
@@ -95,8 +95,9 @@ const UserProfile = () => {
       >
         Edit Profile
       </Button>
+      <br />
       <div style={styles.tripContainer}>
-        <h4>My Upcoming Trips:</h4>
+        <h3 style={{ textDecoration: "underline" }}>My Upcoming Trips:</h3>
         <MyUpcomingTrips currentUser={currentUser} />
       </div>
     </>

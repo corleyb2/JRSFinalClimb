@@ -37,13 +37,9 @@ const TripPlannerWrapper = ({ planLocation, setPlanLocation }) => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <p>In the TripPlannerWrapper</p>
       <CreateTrip planLocation={planLocation} fullUserInfo={fullUserInfo} />
-      <h3>OR join up with your friends on their adventures!</h3>
+      <br />
+      <h3>OR join up with others on their adventures to this location!</h3>
       <MatchTrips planLocation={planLocation} />
     </>
   );

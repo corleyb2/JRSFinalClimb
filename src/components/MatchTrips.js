@@ -27,35 +27,15 @@ const MatchTrips = ({ planLocation }) => {
     fetchTripsMatchingLocation();
   }, []);
 
-  // let arr = response.data;
-  // let upcomingTrips = [];
-  // arr.filter((previouslyPlanned) => {
-  //   if (previouslyPlanned.location === planLocation.name) {
-  //     upcomingTrips.push(previouslyPlanned);
-  //     listUpcomingTrips.push(previouslyPlanned);
-  //   }
-  //   console.log("setListUpcoming", listUpcomingTrips);
-  // });
-
   return (
     <>
-      {/* <button
-        onClick={() => {
-          fetchTripsMatchingLocation();
-          setRenderList(!renderList);
-        }}
-      >
-        Get Upcoming Trips
-      </button> */}
-      <>
-        {renderList ? (
-          <div styles={style.tripGrid}>
-            <ExistingTripList listUpcomingTrips={listUpcomingTrips} />
-          </div>
-        ) : (
-          <></>
-        )}
-      </>
+      {renderList ? (
+        <div styles={style.tripGrid}>
+          <ExistingTripList listUpcomingTrips={listUpcomingTrips} />
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

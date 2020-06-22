@@ -67,7 +67,7 @@ const getAllTrips = async (request, response) => {
 };
 
 //Trips - Find all by location
-const getTripsByName = async (request, response) => {
+const getTripsByLocationName = async (request, response) => {
   try {
     console.log("GET TRIPS");
     console.log("request.query***", request.query.name);
@@ -81,20 +81,9 @@ const getTripsByName = async (request, response) => {
   }
 };
 
-// Trip - Find One by query
-// const findOneTrip = async (request, response) => {
-//   try {
-//     console.log("GET ONE TRIP");
-//     let trip = await TripModel.findOne(request.query);
-//     response.status(200).send(trip);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// };
-
 module.exports = {
   getAllTrips,
-  getTripsByName,
+  getTripsByLocationName,
   deleteTrip,
   createTrip,
   editTrip,
