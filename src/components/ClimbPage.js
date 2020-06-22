@@ -50,8 +50,6 @@ export default function ClimbPage({
   const classes = useStyles();
   const [imageURL, setImageURL] = useState("");
 
-  // console.log("imageFromS3", imageURL);
-
   useEffect(() => {
     async function pullS3Image() {
       let uuidName = climb.photos[0];

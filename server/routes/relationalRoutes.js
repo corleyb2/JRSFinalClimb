@@ -1,16 +1,18 @@
 const path = require("path");
 
 const {
-  findSingleRelational,
+  // findSingleRelational,
   getAllRelationals,
   editRelational,
   deleteRelational,
+  getRelationalsGivenUser,
 } = require("../controllers/relationalController");
 
 const relationalRoutes = (app) => {
   app
     .route("/relational")
-    .get(findSingleRelational)
+    // .get(findSingleRelational)
+    .get(getRelationalsGivenUser)
     .put(editRelational)
     .delete(deleteRelational);
 

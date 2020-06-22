@@ -36,17 +36,23 @@ const editRelational = async (request, response) => {
 const getAllRelationals = async (request, response) => {
   try {
     console.log("GET ALL CLIMBSPOTS");
-    let relationalInstances = await RelationalModel.find({})
-      // .populate("scheduledUsers")
-      // .exec((err, scheduledUsers) => {
-      //   console.log("Populated User " + scheduledUsers);
-      // })
-      .populate("scheduledTrip")
-      .exec((err, scheduledTrips) => {
-        response.status(200).send(scheduledTrips);
-      });
-    // console.log("relationalInstances!!!", relationalInstances);
-    // response.status(200).send("last line", relationalInstances);
+    let relationalInstances = await RelationalModel.find({});
+    console.log("relationalInstances!!!", relationalInstances);
+    response.status(200).send(relationalInstances);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+};
+
+const getRelationalsGivenUser = async (request, response) => {
+  try {
+    console.log("GET RELS BY GIVEN USER");
+    console.log("Req.query.scheduled user", request.query.scheduledUser);
+    const relationalByUser = await RelationalModel.find({
+      scheduledUser: request.query.scheduledUser,
+    }).populate("scheduledTrip");
+    console.log("relational arr", relationalByUser);
+    response.status(200).send(relationalByUser);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -64,8 +70,9 @@ const findSingleRelational = async (request, response) => {
 };
 
 module.exports = {
-  findSingleRelational,
+  // findSingleRelational,
   getAllRelationals,
   editRelational,
   deleteRelational,
+  getRelationalsGivenUser,
 };

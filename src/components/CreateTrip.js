@@ -23,7 +23,7 @@ const CreateTrip = ({ planLocation, fullUserInfo }) => {
           },
         },
         userData: {
-          scheduledUsers: scheduledUsers.concat(fullUserInfo._id),
+          scheduledUsers: fullUserInfo._id,
         },
       };
       await axios({

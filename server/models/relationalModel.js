@@ -6,8 +6,8 @@ const relationalSchema = new mongoose.Schema({
     required: true,
     ref: "trip",
   },
-  scheduledUsers: {
-    type: [mongoose.Schema.Types.ObjectId],
+  scheduledUser: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "user",
   },
