@@ -22,7 +22,8 @@ const Home = () => {
 
   return username !== null ? (
     <div>
-      <h2>Welcome to Home Page</h2>
+      <h2>Build Your Boulder Bunch</h2>
+      <h4>Scheduled trips and meet new climbing partners!</h4>
       <img
         src={backgroundclimb}
         alt="background"

@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Storage, Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+
 const styles = {
   root: {
     display: "flex",
@@ -12,9 +16,24 @@ const styles = {
     margin: 10,
     width: "25ch",
   },
+  formStyle: {
+    maxWidth: "50vw",
+    display: "flex",
+    flexDirection: "column",
+    margin: "auto",
+  },
   contentLine: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "center",
+    marginTop: "10px",
+    marginBottom: "10px",
+    alignItems: "center",
+  },
+  buttonWrapper: {
+    marginTop: "30px",
+    width: "20px",
+    margin: "auto",
   },
 };
 
@@ -22,20 +41,19 @@ const CreateUserProfile = () => {
   const [avatarFile, setAvatarFile] = useState("");
   const [authUsername, setAuthUsername] = useState("");
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [skillHigh, setSkillHigh] = useState("");
+  const [skillLow, setSkillLow] = useState("");
+
   useEffect(() => {
     const extractUsername = async () => {
       const fromAuth = await Auth.currentUserInfo();
       const gotUser = await fromAuth.username;
-      setAuthUsername(gotUser);
+      await setAuthUsername(gotUser);
     };
     extractUsername();
   }, []);
-
-  let firstnameInput,
-    lastnameInput,
-    passwordInput,
-    skillHighInput,
-    skillLowInput;
 
   async function postNewUser() {
     try {
@@ -51,12 +69,11 @@ const CreateUserProfile = () => {
       console.log("43", imageResponse);
       let profileToCreate = {
         username: authUsername,
-        // password: passwordInput.value,
-        firstname: firstnameInput.value,
-        lastname: lastnameInput.value,
+        firstname: firstName,
+        lastname: lastName,
         skillLevel: {
-          high: Number(skillHighInput.value),
-          low: Number(skillLowInput.value),
+          high: Number(skillHigh),
+          low: Number(skillLow),
         },
         avatar: imageResponse === "" ? "" : imageResponse.key.split("/")[1],
       };
@@ -78,76 +95,73 @@ const CreateUserProfile = () => {
   }
 
   return (
-    <div style={styles.formStyle}>
-      <form
-        style={styles.root}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await postNewUser();
-        }}
-      >
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br /> <br /> <br />
+    <>
+      <h2>Create Your Profile:</h2>
+      <div style={styles.formStyle}>
         <div style={styles.contentLine}>
-          <label htmlFor="username">Username:</label>
-          <p>{authUsername}</p>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            ref={(node) => (passwordInput = node)}
-          />
+          <h3>
+            Username:{"  "} {authUsername}
+          </h3>
         </div>
         <div style={styles.contentLine}>
-          <label htmlFor="firstname">First Name:</label>
-          <input
+          <TextField
             id="firstname"
             type="text"
-            placeholder="First Name"
-            ref={(node) => (firstnameInput = node)}
+            label="FirstName"
+            onChange={(e) => setFirstName(e.target.value)}
           />
-        </div>
-        <div style={styles.contentLine}>
-          <label htmlFor="lastname">Last Name:</label>
-          <input
+          {"  "}
+
+          <TextField
             id="lastname"
+            label="Last Name"
             type="text"
-            placeholder="Last Name"
-            ref={(node) => (lastnameInput = node)}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
         <div style={styles.contentLine}>
-          <label htmlFor="skillHigh">Skill Level - Top:</label>
-          <input
+          <TextField
             id="skillHigh"
             type="number"
+            label="Skill - Low"
             min="0"
             max="12"
-            ref={(node) => (skillHighInput = node)}
+            onChange={(e) => setSkillLow(e.target.value)}
           />
-          <label htmlFor="skillLow">Skill Level - Low End</label>
-          <input
+          {"  "}
+          <TextField
             id="skillLow"
             type="number"
+            label="Skill-High"
             min="0"
             max="12"
-            ref={(node) => (skillLowInput = node)}
+            onChange={(e) => setSkillHigh(e.target.value)}
           />
         </div>
-        <label htmlFor="avatar">Upload an Avatar</label>
-        <input
-          type="file"
-          accept="image/*"
-          id="s3-avatar"
-          onChange={(e) => {
-            setAvatarFile(e.target.files[0]);
-          }}
-        />
+        <div style={styles.contentLine}>
+          <label htmlFor="avatar">Upload an Avatar</label>
+          <input
+            type="file"
+            accept="image/*"
+            id="s3-avatar"
+            onChange={(e) => {
+              setAvatarFile(e.target.files[0]);
+            }}
+          />
+        </div>
+        <br />
+        <br />
+        <div style={styles.buttonWrapper}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={async (e) => {
+              await postNewUser();
+            }}
+          >
+            Submit
+          </Button>
+        </div>
         <p>
           This site uses the V Scale to grade climbing aptitude. Not familiar?
           Click below to find out more.
@@ -155,9 +169,8 @@ const CreateUserProfile = () => {
         <p>
           https://www.rei.com/learn/expert-advice/climbing-bouldering-rating.html
         </p>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 
