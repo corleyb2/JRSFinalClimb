@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -17,6 +17,7 @@ import MenuList from "@material-ui/core/MenuList";
 
 import { navigate } from "@reach/router";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 
 const drawerWidth = 240;
 
@@ -103,6 +104,8 @@ const useStyles = makeStyles((theme) => ({
   signOut: {
     maxWidth: "100%",
     justifyContent: "center",
+    border: "none",
+    backgroundColor: "none",
   },
 }));
 
@@ -110,6 +113,7 @@ export default function Nav() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [username, setUsername] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -118,6 +122,17 @@ export default function Nav() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const getUsername = async () => {
+      const useAuth = await Auth.currentUserInfo();
+      if (useAuth !== null) {
+        const gotUser = await useAuth.username;
+        setUsername(gotUser);
+      }
+    };
+    getUsername();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -161,9 +176,6 @@ export default function Nav() {
         <Divider />
 
         <List>
-          <h3>You are Signed In As:</h3>
-          <Divider />
-
           <MenuList>
             <MenuItem
               className={classes.list}
@@ -213,6 +225,9 @@ export default function Nav() {
             </MenuItem>
           </MenuList>
           <Divider />
+          <h3>You are Signed In As:</h3>
+          <h3>{username}</h3>
+          <h3></h3>
           <div className={classes.avatarContainer}>
             {/* <img
     src={require("../assets/JRSLogo.jpg")}

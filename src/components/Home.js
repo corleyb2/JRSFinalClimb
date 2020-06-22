@@ -22,7 +22,6 @@ const Home = () => {
 
   return username !== null ? (
     <div>
-      <h2>Welcome to Home Page, {username}</h2>
       <h2>Welcome to Home Page</h2>
       <img
         src={backgroundclimb}
