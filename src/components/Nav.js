@@ -81,6 +81,9 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  list: {
+    height: "46px",
+  },
   avatarContainer: {
     width: "185px",
     height: "185px",
@@ -120,7 +123,7 @@ export default function Nav() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position="sticky"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -197,7 +200,7 @@ export default function Nav() {
                 handleDrawerClose();
               }}
             >
-              Search Climbs
+              Climb Spot List
             </MenuItem>
             <MenuItem
               className={classes.list}

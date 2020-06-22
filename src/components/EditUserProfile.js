@@ -57,13 +57,13 @@ const EditUserProfile = ({ setToggleEdit, toggleEdit, currentUser }) => {
         onSubmit={async (e) => {
           e.preventDefault();
           await updateUser();
-          await setToggleEdit(!toggleEdit);
+          await await setToggleEdit(!toggleEdit);
         }}
       >
         <div style={styles.lineStyle}>
           <label>Username:</label>
           <h4>{currentUser.username}</h4>
-          <Tooltip title="username" placement="right">
+          <Tooltip title="You may not change your username" placement="right">
             <IconButton aria-label="You may not change your username">
               <HelpOutlineIcon />
             </IconButton>
@@ -154,15 +154,15 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: "20px",
   },
   lineStyle: {
     display: "flex",
     flexDirection: "row",
-    border: "2px solid black",
     alignItems: "center",
     width: "300px",
     height: "40px",
-    padding: "25px",
+    padding: "5px",
   },
   avatar: {
     width: "100px",

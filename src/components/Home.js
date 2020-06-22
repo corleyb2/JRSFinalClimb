@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
+import backgroundclimb from "../assets/backgroundclimb.jpg";
 
 //maybe some onclicks?  Or will Nav handle all of this?
 
@@ -21,12 +22,17 @@ const Home = () => {
 
   return username !== null ? (
     <div>
-      <br />
-      <br />
-      <br />
-      <br />
       <h2>Welcome to Home Page, {username}</h2>
       <h2>Welcome to Home Page</h2>
+      <img
+        src={backgroundclimb}
+        alt="background"
+        style={{ maxWidth: "85vw", maxHeight: "auto" }}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   ) : (
     <div>Loading...</div>

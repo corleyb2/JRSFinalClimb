@@ -30,9 +30,6 @@ export const ClimbList = ({ planLocation, setPlanLocation }) => {
   return (
     <>
       <div>
-        <br />
-        <br />
-        <br />
         <h2>Climb List Page</h2>
         <p>Input here to search (by zip?)</p>
         <div className={classes.root}>

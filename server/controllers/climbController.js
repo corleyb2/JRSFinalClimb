@@ -5,8 +5,9 @@ const createClimb = async (request, response) => {
   try {
     console.log("POST CLIMBSPOT");
     let climbInstance = new ClimbModel(request.body);
-    console.log(climbInstance);
+    console.log("******instance!", climbInstance);
     const createdClimb = await ClimbModel.create(climbInstance);
+    console.log("***createdClimb4$$###", createdClimb);
     response.send(createdClimb);
   } catch (error) {
     response.status(500).send(error);

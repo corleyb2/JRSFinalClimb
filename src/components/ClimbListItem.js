@@ -18,9 +18,6 @@ const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
 
   const [open, setOpen] = React.useState(false);
 
-  console.log("climb", climb);
-  console.log("imageURL", imageURL);
-
   useEffect(() => {
     async function pullS3Image() {
       let uuidName = climb.photos[0];
@@ -56,14 +53,14 @@ const ClimbListItem = ({ climb, planLocation, setPlanLocation }) => {
             <Typography gutterBottom variant="h5" component="h3">
               {climb.location.town}, {climb.location.state} {climb.location.zip}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            {/* <Typography variant="body2" color="textSecondary" component="p">
               {climb.description}
-              {climb._id}
-            </Typography>
+            </Typography> */}
           </CardContent>
         </CardActionArea>
         <CardActions className={classes.buttonWrapper}>
           <Button
+            variant="contained"
             size="small"
             color="primary"
             onClick={() => {
@@ -119,7 +116,7 @@ const useStyles = makeStyles({
     boxShadow: "2px 3px 5px gray",
   },
   info: {
-    width: "35vw",
+    width: "50vw",
   },
   buttonWrapper: {
     display: "flex",

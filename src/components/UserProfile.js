@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Storage, Auth } from "aws-amplify";
+import Button from "@material-ui/core/Button";
 
 import EditUserProfile from "./EditUserProfile";
 import MyUpcomingTrips from "./MyUpcomingTrips";
@@ -50,7 +51,7 @@ const UserProfile = () => {
       />
     </>
   ) : isLoading ? (
-    <div>Loading....</div>
+    <div>Loading...</div>
   ) : (
     <>
       <h2>View User Profile</h2>
@@ -87,7 +88,13 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <button onClick={() => setToggleEdit(!toggleEdit)}>Edit Profile</button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setToggleEdit(!toggleEdit)}
+      >
+        Edit Profile
+      </Button>
       <div style={styles.tripContainer}>
         <h4>My Upcoming Trips:</h4>
         <MyUpcomingTrips currentUser={currentUser} />
