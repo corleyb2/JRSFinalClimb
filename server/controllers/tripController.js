@@ -10,7 +10,7 @@ const createTrip = async (request, response) => {
     const tripInstance = new TripModel(trip);
     const createdTrip = await TripModel.create(tripInstance);
     const relationalInstance = new RelationalModel({
-      scheduledUsers: userData.scheduledUsers,
+      scheduledUser: userData.scheduledUser,
       scheduledTrip: createdTrip._id,
     });
     console.log("*** relationInstance", relationalInstance);
@@ -66,15 +66,36 @@ const getAllTrips = async (request, response) => {
   }
 };
 
-// Trip - Find One by query
-const findOneTrip = async (request, response) => {
+//Trips - Find all by location
+const getTripsByName = async (request, response) => {
   try {
-    console.log("GET ONE TRIP");
-    let trip = await TripModel.findOne(request.query);
-    response.status(200).send(trip);
+    console.log("GET TRIPS");
+    console.log("request.query***", request.query.name);
+    const tripInstances = await TripModel.find({
+      location: request.query.name,
+    });
+    console.log("trip instances", tripInstances);
+    response.status(200).send(tripInstances);
   } catch (error) {
     response.status(500).send(error);
   }
 };
 
-module.exports = { getAllTrips, findOneTrip, deleteTrip, createTrip, editTrip };
+// Trip - Find One by query
+// const findOneTrip = async (request, response) => {
+//   try {
+//     console.log("GET ONE TRIP");
+//     let trip = await TripModel.findOne(request.query);
+//     response.status(200).send(trip);
+//   } catch (error) {
+//     response.status(500).send(error);
+//   }
+// };
+
+module.exports = {
+  getAllTrips,
+  getTripsByName,
+  deleteTrip,
+  createTrip,
+  editTrip,
+};

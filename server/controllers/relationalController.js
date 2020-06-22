@@ -59,15 +59,15 @@ const getRelationalsGivenUser = async (request, response) => {
 };
 
 // Relationals - Find One by query
-const findSingleRelational = async (request, response) => {
-  try {
-    console.log("GET ONE CLIMBSPOT");
-    let relational = await RelationalModel.findOne(request.query);
-    response.status(200).send(relational);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-};
+// const findSingleRelational = async (request, response) => {
+//   try {
+//     console.log("GET ONE CLIMBSPOT");
+//     let relational = await RelationalModel.findOne(request.query);
+//     response.status(200).send(relational);
+//   } catch (error) {
+//     response.status(500).send(error);
+//   }
+// };
 
 module.exports = {
   // findSingleRelational,

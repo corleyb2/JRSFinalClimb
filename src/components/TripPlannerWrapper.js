@@ -6,9 +6,10 @@ import CreateTrip from "./CreateTrip";
 import MatchTrips from "./MatchTrips";
 
 const TripPlannerWrapper = ({ planLocation, setPlanLocation }) => {
-  const [tripFocus, setTripFocus] = useState({});
   const [currentUsername, setCurrentUsername] = useState("");
   const [fullUserInfo, setFullUserInfo] = useState({});
+
+  console.log("plan location", planLocation);
 
   useEffect(() => {
     async function getUserProfile() {
@@ -41,8 +42,9 @@ const TripPlannerWrapper = ({ planLocation, setPlanLocation }) => {
       <br />
       <br />
       <p>In the TripPlannerWrapper</p>
-      <MatchTrips planLocation={planLocation} tripFocus={tripFocus} />
       <CreateTrip planLocation={planLocation} fullUserInfo={fullUserInfo} />
+      <h3>OR join up with your friends on their adventures!</h3>
+      <MatchTrips planLocation={planLocation} />
     </>
   );
 };

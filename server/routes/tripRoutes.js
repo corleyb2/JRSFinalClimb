@@ -2,7 +2,7 @@ const path = require("path");
 
 const {
   getAllTrips,
-  findOneTrip,
+  getTripsByName,
   deleteTrip,
   createTrip,
   editTrip,
@@ -12,7 +12,7 @@ const tripRoutes = (app) => {
   app
     .route("/trip")
     .post(createTrip)
-    .get(findOneTrip)
+    .get(getTripsByName)
     .put(editTrip)
     .delete(deleteTrip);
 

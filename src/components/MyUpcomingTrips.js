@@ -26,10 +26,10 @@ const MyUpcomingTrips = ({ currentUser }) => {
       {userTrips &&
         userTrips.map((trip) => (
           <div key={trip._id}>
-            <h3>{trip.scheduledTrip.location}</h3>
+            <h3>{trip.scheduledTrip && trip.scheduledTrip.location}</h3>
             <p>
-              {trip.scheduledTrip.dateRange.start} to{" "}
-              {trip.scheduledTrip.dateRange.end}
+              {trip.scheduledTrip && trip.scheduledTrip.dateRange.start} to{" "}
+              {trip.scheduledTrip && trip.scheduledTrip.dateRange.end}
             </p>
           </div>
         ))}
