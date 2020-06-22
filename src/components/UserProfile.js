@@ -12,9 +12,15 @@ const UserProfile = () => {
   const [toggleEdit, setToggleEdit] = useState(false);
   const [isLoading, toggleLoading] = useState(true);
 
+  const [renderUpdatedTrips, setRenderUpdatedTrips] = useState(false);
+
   useEffect(() => {
     getUserProfile && getUserProfile();
   }, []);
+
+  useEffect(() => {
+    getUserProfile && getUserProfile();
+  }, [renderUpdatedTrips]);
 
   async function getUserProfile() {
     try {
@@ -98,7 +104,10 @@ const UserProfile = () => {
       <br />
       <div style={styles.tripContainer}>
         <h3 style={{ textDecoration: "underline" }}>My Upcoming Trips:</h3>
-        <MyUpcomingTrips currentUser={currentUser} />
+        <MyUpcomingTrips
+          currentUser={currentUser}
+          setRenderUpdatedTrips={setRenderUpdatedTrips}
+        />
       </div>
     </>
   );

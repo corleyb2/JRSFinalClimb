@@ -2,8 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 
-const MyUpcomingTrips = ({ currentUser }) => {
+import EditTrip from "./EditTrip";
+
+const MyUpcomingTrips = ({ currentUser, setRenderUpdatedTrips }) => {
   const [userTrips, setUserTrips] = useState([]);
+  const [renderEdit, setRenderEdit] = useState(false);
+  const [selectedTrip, setSelectedTrip] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     async function userTrips() {
@@ -38,20 +51,27 @@ const MyUpcomingTrips = ({ currentUser }) => {
                 size="small"
                 variant="outlined"
                 color="primary"
+                onClick={(e) => {
+                  setSelectedTrip(trip);
+                  setRenderEdit(true);
+                  handleOpen();
+                }}
               >
                 Edit Trip
-              </Button>
-              <Button
-                style={styles.buttons}
-                size="small"
-                variant="outlined"
-                color="secondary"
-              >
-                Cancel
               </Button>
             </div>
           </div>
         ))}
+      {renderEdit ? (
+        <EditTrip
+          handleClose={handleClose}
+          open={open}
+          selectedTrip={selectedTrip}
+          setRenderUpdatedTrips={setRenderUpdatedTrips}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
@@ -62,15 +82,14 @@ const styles = {
   gridContainer: {
     display: "flex",
     flexDirection: "column",
-
-    maxWidth: "50vw",
+    maxWidth: "65vw",
     margin: "auto",
   },
   listLine: {
     display: "flex",
     flexDirection: "row",
     borderBottom: "1px dotted black",
-    maxWidth: "50vw",
+    maxWidth: "65vw",
   },
   name: {
     padding: "10px",
@@ -88,7 +107,7 @@ const styles = {
   },
   buttons: {
     height: "30px",
-    width: "8vw",
+    width: "12vw",
     alignItems: "center",
     margin: "20px",
   },

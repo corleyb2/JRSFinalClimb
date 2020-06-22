@@ -44,11 +44,15 @@ const deleteTrip = async (request, response) => {
 const editTrip = async (request, response) => {
   try {
     console.log("UPDATE TRIP");
+    console.log("**request.query**", request.query);
+    console.log("***request.body***", request.body);
     let updatedTrip = await TripModel.findOneAndUpdate(
       request.query,
-      request.body
+      request.body,
+      { new: true }
     );
-    response.send(updatedTrip);
+    console.log("updatedTRIPPLZZ**", updatedTrip);
+    response.status(200).send(updatedTrip);
   } catch (error) {
     response.status(500).send(error);
   }
