@@ -113,6 +113,7 @@ const EditTrip = ({
               label="Start Date"
               type="date"
               className={classes.textField}
+              defaultValue={selectedTrip.scheduledTrip.dateRange.start}
               onChange={(e) => setEditedStart(e.target.value)}
               InputLabelProps={{
                 shrink: true,
@@ -123,6 +124,7 @@ const EditTrip = ({
               label="End Date"
               type="date"
               className={classes.textField}
+              defaultValue={selectedTrip.scheduledTrip.dateRange.end}
               onChange={(e) => setEditedEnd(e.target.value)}
               InputLabelProps={{
                 shrink: true,
