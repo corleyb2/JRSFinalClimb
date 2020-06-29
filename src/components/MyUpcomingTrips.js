@@ -85,6 +85,20 @@ const MyUpcomingTrips = ({ currentUser, setRenderUpdatedTrips }) => {
               >
                 Edit Trip
               </Button>
+              <Button
+                style={styles.buttons}
+                size="small"
+                variant="outlined"
+                color="secondary"
+                onClick={(e) => {
+                  setSelectedTrip(trip);
+                  //create a function to delete this
+                  //create another toggle useState to render new component
+                  // -- message other attendees letting them know you're cancelling?
+                }}
+              >
+                Cancel Trip
+              </Button>
             </div>
           </div>
         ))}

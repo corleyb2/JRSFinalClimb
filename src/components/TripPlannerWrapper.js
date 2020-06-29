@@ -40,7 +40,7 @@ const TripPlannerWrapper = ({ planLocation, setPlanLocation }) => {
       <CreateTrip planLocation={planLocation} fullUserInfo={fullUserInfo} />
       <br />
       <h3>OR join up with others on their adventures to this location!</h3>
-      <MatchTrips planLocation={planLocation} />
+      <MatchTrips planLocation={planLocation} fullUserInfo={fullUserInfo} />
     </>
   );
 };

@@ -1,12 +1,32 @@
 const { RelationalModel } = require("../models/relationalModel");
+const { TripModel } = require("../models/tripModel");
 
 // Relational Creation handled in tripController POST
+
+// Create Relational
+const postRelationalGivenTripID = async (request, response) => {
+  try {
+    console.log("Inside the Try of Create Rel Given TripID");
+    console.log("Request.body ****", request.body);
+    const relationalInstance = new RelationalModel(request.body);
+    const createdRelational = await RelationalModel.create({
+      scheduledUser: request.body.creationInfo.userId,
+      scheduledTrip: request.body.creationInfo.tripId,
+    });
+    console.log("Create Relational", createdRelational);
+    const locationMatches = await TripModel.find({
+      location: request.body.matchInfo,
+    });
+    console.log("The Matches^^^^", locationMatches);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+};
 
 // Delete Relational (query string)
 const deleteRelational = async (request, response) => {
   try {
     console.log("DELETE RELATIONAL ENTRY", request);
-
     let deleteRelationalInstance = await RelationalModel.deleteOne(
       request.query
     );
@@ -58,6 +78,7 @@ const getRelationalsGivenUser = async (request, response) => {
   }
 };
 
+//GET RELATIONALS GIVEN CLIMB (.populate, from MatchTrips.js)
 // const getRelationalsGivenClimb = async (request, response) => {
 //   try {
 //     console.log("GET RELS BY GIVEN TRIP");
@@ -73,7 +94,7 @@ const getRelationalsGivenUser = async (request, response) => {
 // };
 
 module.exports = {
-  // findSingleRelational,
+  postRelationalGivenTripID,
   getAllRelationals,
   editRelational,
   deleteRelational,

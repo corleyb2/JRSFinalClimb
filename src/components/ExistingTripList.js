@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 
-export default function ExistingTripList({ listUpcomingTrips }) {
-  console.log("listUpcoming on ExistingTripList component", listUpcomingTrips);
+import JoinExistingTrip from "./JoinExistingTrip";
 
-  return (
+export default function ExistingTripList({ listUpcomingTrips, fullUserInfo }) {
+  const [pickedTrip, setPickedTrip] = useState({});
+  const [joinRender, setJoinRender] = useState(false);
+
+  const [open, setOpen] = React.useState(false);
+
+  console.log("listUpcoming on ExistingTripList component", listUpcomingTrips);
+  console.log("picked trip - should be nothing at first", pickedTrip);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return joinRender ? (
+    <JoinExistingTrip
+      pickedTrip={pickedTrip}
+      setJoinRender={setJoinRender}
+      handleClose={handleClose}
+      open={open}
+      fullUserInfo={fullUserInfo}
+    />
+  ) : (
     <div style={styles.gridContainer}>
       {listUpcomingTrips &&
         listUpcomingTrips.map((trip) => (
@@ -24,6 +48,11 @@ export default function ExistingTripList({ listUpcomingTrips }) {
                 size="small"
                 variant="outlined"
                 color="primary"
+                onClick={() => {
+                  setPickedTrip(trip);
+                  setJoinRender(true);
+                  handleOpen();
+                }}
               >
                 Join Trip!
               </Button>

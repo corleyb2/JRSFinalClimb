@@ -1,7 +1,7 @@
 const path = require("path");
 
 const {
-  // findSingleRelational,
+  postRelationalGivenTripID,
   getAllRelationals,
   editRelational,
   deleteRelational,
@@ -11,7 +11,7 @@ const {
 const relationalRoutes = (app) => {
   app
     .route("/relational")
-    // .get(findSingleRelational)
+    .post(postRelationalGivenTripID)
     .get(getRelationalsGivenUser)
     .put(editRelational)
     .delete(deleteRelational);
