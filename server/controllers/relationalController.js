@@ -79,7 +79,7 @@ const getRelationalsGivenUser = async (request, response) => {
 };
 
 //GET RELATIONALS GIVEN CLIMB (.populate, from MatchTrips.js)
-// const getRelationalsGivenClimb = async (request, response) => {
+// const getRelationalsGivenClimbID = async (request, response) => {
 //   try {
 //     console.log("GET RELS BY GIVEN TRIP");
 //     console.log("Req.query.scheduled trip", request.query.scheduledTrip);

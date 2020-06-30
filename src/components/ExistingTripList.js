@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 
 import JoinExistingTrip from "./JoinExistingTrip";
 
-export default function ExistingTripList({ listUpcomingTrips, fullUserInfo }) {
+export default function ExistingTripList({
+  listUpcomingTrips,
+  fullUserInfo,
+  planLocation,
+}) {
   const [pickedTrip, setPickedTrip] = useState({});
   const [joinRender, setJoinRender] = useState(false);
 
   const [open, setOpen] = React.useState(false);
-
-  console.log("listUpcoming on ExistingTripList component", listUpcomingTrips);
-  console.log("picked trip - should be nothing at first", pickedTrip);
 
   const handleOpen = () => {
     setOpen(true);
@@ -19,6 +21,28 @@ export default function ExistingTripList({ listUpcomingTrips, fullUserInfo }) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  //This axios call is querying by a Climb's ID, rather than a Trip's ID.
+  //Need Trip ID to link to Relational table & get attendees
+
+  // useEffect(() => {
+  //   async function getAttendees() {
+  //     try {
+  //       console.log("plan location in getAttendees UE", planLocation);
+  //       const result = await axios({
+  //         method: "get",
+  //         url: `http://localhost:4000/relational/byLocation?scheduledTrip=${planLocation._id}`,
+  //         header: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       console.log("result of axios attendees^^^", result);
+  //     } catch (error) {
+  //       console.log("Error getting attendees", error);
+  //     }
+  //   }
+  //   getAttendees();
+  // }, []);
 
   return joinRender ? (
     <JoinExistingTrip

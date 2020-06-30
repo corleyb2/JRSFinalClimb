@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { navigate } from "@reach/router";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -50,8 +49,6 @@ const JoinExistingTrip = ({
 }) => {
   const [messageContent, setMessageContent] = useState("");
 
-  console.log("pickedTrip^%^%^", pickedTrip);
-
   const classes = useStyles();
 
   async function joinByNewRelational() {
@@ -63,7 +60,6 @@ const JoinExistingTrip = ({
         },
         matchInfo: pickedTrip.location,
       };
-      console.log("SENDING IN AXIOS &&&", newEntry);
       const result = await axios({
         method: "post",
         url: `http://localhost:4000/relational`,
@@ -121,7 +117,7 @@ const JoinExistingTrip = ({
                 e.preventDefault();
                 await joinByNewRelational();
                 await handleClose();
-                // reRenderTrips();
+                // reRenderTrips() - revisit fn from EditTrip component (targeted re-render of specifically edited trip)
                 // gotta handle the message piece too
               }}
             >

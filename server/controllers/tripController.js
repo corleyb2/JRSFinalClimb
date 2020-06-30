@@ -79,6 +79,15 @@ const getTripsByLocationName = async (request, response) => {
       location: request.query.name,
     });
     console.log("trip instances", tripInstances);
+    //gives back an array of objects(trips), each w unique id.
+
+    // for tripInstances[i]._id (map or loop)
+    // Query to RelationalModel
+    // if scheduledTrip._id === trip._id, return attendees .populated
+    // const tripAttendees = await RelationalModel.find({
+    //  do something .....
+    // });
+    //do something with trip._id in the RelationalModel
     response.status(200).send(tripInstances);
   } catch (error) {
     response.status(500).send(error);

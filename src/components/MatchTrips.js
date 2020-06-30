@@ -12,7 +12,6 @@ const MatchTrips = ({ planLocation, fullUserInfo }) => {
   useEffect(() => {
     async function fetchTripsMatchingLocation() {
       try {
-        //if I query relational table by planLocation._id, can I populate and pass that down to ExistingTripList rather than doing 2 separate calls to 2 separate tables?
         const response = await axios({
           method: "GET",
           url: `http://localhost:4000/trip?name=${planLocation.name}`,
@@ -36,6 +35,7 @@ const MatchTrips = ({ planLocation, fullUserInfo }) => {
           <ExistingTripList
             listUpcomingTrips={listUpcomingTrips}
             fullUserInfo={fullUserInfo}
+            planLocation={planLocation}
           />
         </div>
       ) : (
