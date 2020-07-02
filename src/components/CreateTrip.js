@@ -30,9 +30,8 @@ const CreateTrip = ({ planLocation, fullUserInfo, setTripFocus }) => {
   const [createdTrip, setCreatedTrip] = useState({});
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
-  console.log("FullUserInfo at createtrip", fullUserInfo._id);
-  console.log("createdTrip", createdTrip._id);
+  //planLocation gives the selected climb from climb page
+  //full user info gives full object
 
   async function submitCreatedTrip() {
     try {
@@ -113,27 +112,3 @@ const CreateTrip = ({ planLocation, fullUserInfo, setTripFocus }) => {
 };
 
 export default CreateTrip;
-
-// let endDateInput, startDateInput;
-
-{
-  /* <form
-onSubmit={async (e) => {
-  e.preventDefault();
-  await submitCreatedTrip();
-}}
->
-<h2>Trip Planning</h2>
-<label htmlFor="climbName"></label>
-<p> Planning Trip to {planLocation.name}</p>
-<label htmlFor="startDate">Start Date</label>
-<input
-  type="date"
-  id="startDate"
-  ref={(node) => (startDateInput = node)}
-/>
-<label htmlFor="endDate">End Date</label>
-<input type="date" id="endDate" ref={(node) => (endDateInput = node)} />
-<button type="submit">Submit Trip</button>
-</form> */
-}

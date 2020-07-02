@@ -14,6 +14,8 @@ export default function ExistingTripList({
 
   const [open, setOpen] = React.useState(false);
 
+  console.log(listUpcomingTrips);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -24,25 +26,6 @@ export default function ExistingTripList({
 
   //This axios call is querying by a Climb's ID, rather than a Trip's ID.
   //Need Trip ID to link to Relational table & get attendees
-
-  // useEffect(() => {
-  //   async function getAttendees() {
-  //     try {
-  //       console.log("plan location in getAttendees UE", planLocation);
-  //       const result = await axios({
-  //         method: "get",
-  //         url: `http://localhost:4000/relational/byLocation?scheduledTrip=${planLocation._id}`,
-  //         header: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       console.log("result of axios attendees^^^", result);
-  //     } catch (error) {
-  //       console.log("Error getting attendees", error);
-  //     }
-  //   }
-  //   getAttendees();
-  // }, []);
 
   return joinRender ? (
     <JoinExistingTrip
@@ -57,15 +40,20 @@ export default function ExistingTripList({
       {listUpcomingTrips &&
         listUpcomingTrips.map((trip) => (
           <div key={trip._id} style={styles.listLine}>
-            <p style={styles.name}>{trip && trip.location}</p>
-            <p style={styles.dates}>
-              {trip.dateRange && trip.dateRange.start} to{" "}
-              {trip.dateRange && trip.dateRange.end}
+            <p style={styles.name}>
+              {trip.scheduledTrip && trip.scheduledTrip.location}
             </p>
-            {/* <p>
-              Need to figure out how to get the attendees, going to relational
-            </p> */}
-            <p>List of Attendees Here</p>
+            <p style={styles.dates}>
+              {trip.scheduledTrip.dateRange &&
+                trip.scheduledTrip.dateRange.start}{" "}
+              to{" "}
+              {trip.scheduledTrip.dateRange && trip.scheduledTrip.dateRange.end}
+            </p>
+            {/* This will be map or filter to get same trip / multiple users on same line */}
+            <p>
+              {trip.scheduledUser && trip.scheduledUser.firstname}{" "}
+              {trip.scheduledUser && trip.scheduledUser.lastname}
+            </p>
             <div style={styles.buttonContainer}>
               <Button
                 style={styles.buttons}

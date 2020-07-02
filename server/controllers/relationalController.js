@@ -78,21 +78,6 @@ const getRelationalsGivenUser = async (request, response) => {
   }
 };
 
-//GET RELATIONALS GIVEN CLIMB (.populate, from MatchTrips.js)
-// const getRelationalsGivenClimbID = async (request, response) => {
-//   try {
-//     console.log("GET RELS BY GIVEN TRIP");
-//     console.log("Req.query.scheduled trip", request.query.scheduledTrip);
-//     const relationalByTrip = await RelationalModel.find({
-//       scheduledTrip: request.query.scheduledTrip,
-//     }).populate("scheduledUser");
-//     console.log("relational arr", relationalByUser);
-//     response.status(200).send(relationalByUser);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// };
-
 module.exports = {
   postRelationalGivenTripID,
   getAllRelationals,

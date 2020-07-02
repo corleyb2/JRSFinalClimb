@@ -6,8 +6,7 @@ import ExistingTripList from "./ExistingTripList";
 const MatchTrips = ({ planLocation, fullUserInfo }) => {
   const [listUpcomingTrips, setListUpcomingTrips] = useState([]);
   const [renderList, setRenderList] = useState(false);
-  console.log("list upcoming trips by hook", listUpcomingTrips);
-  console.log("planLocation in MatchTrips", planLocation);
+  //planLocation gives the selected climb from climb page
 
   useEffect(() => {
     async function fetchTripsMatchingLocation() {
@@ -19,6 +18,7 @@ const MatchTrips = ({ planLocation, fullUserInfo }) => {
             ContentType: "application/json",
           },
         });
+        // gives back populated rel w/ scheduledUser & scheduledTrip
         setListUpcomingTrips(response.data);
         setRenderList(true);
       } catch (error) {

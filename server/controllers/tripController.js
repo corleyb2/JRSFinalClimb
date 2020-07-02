@@ -70,25 +70,37 @@ const getAllTrips = async (request, response) => {
   }
 };
 
-//Trips - Find all by location
+//Trips - By Location (+ pull relational entries to get attendees)
 const getTripsByLocationName = async (request, response) => {
   try {
     console.log("GET TRIPS");
     console.log("request.query***", request.query.name);
+
+    //gives back an array of objects(trips), each w unique id.
     const tripInstances = await TripModel.find({
       location: request.query.name,
     });
     console.log("trip instances", tripInstances);
-    //gives back an array of objects(trips), each w unique id.
 
-    // for tripInstances[i]._id (map or loop)
-    // Query to RelationalModel
-    // if scheduledTrip._id === trip._id, return attendees .populated
-    // const tripAttendees = await RelationalModel.find({
-    //  do something .....
-    // });
-    //do something with trip._id in the RelationalModel
-    response.status(200).send(tripInstances);
+    //gives arr of the tripInstances' _id properties.
+    let newArr = tripInstances.map((tripInstance) => tripInstance._id);
+    console.log("newarr &&&", newArr);
+
+    //returns array of records matching this trip _id
+    const relInstances = await RelationalModel.find()
+      .where("scheduledTrip")
+      .in(newArr)
+      .populate("scheduledUser scheduledTrip");
+    console.log("--rel instances $$$$", relInstances);
+    response.status(200).send(relInstances);
+
+    //relInstances.populate "scheduledTrip" duplicates tripInstances
+    // const res = {
+    //   tripInstances,
+    //   relInstances,
+    // };
+    // console.log("&& RES **", res);
+    // response.status(200).send(res);
   } catch (error) {
     response.status(500).send(error);
   }

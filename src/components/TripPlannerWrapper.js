@@ -8,8 +8,7 @@ import MatchTrips from "./MatchTrips";
 const TripPlannerWrapper = ({ planLocation, setPlanLocation }) => {
   const [currentUsername, setCurrentUsername] = useState("");
   const [fullUserInfo, setFullUserInfo] = useState({});
-
-  console.log("plan location", planLocation);
+  //planLocation gives the selected climb from climb page
 
   useEffect(() => {
     async function getUserProfile() {
